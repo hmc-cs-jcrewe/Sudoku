@@ -31,7 +31,7 @@ private:
 
 public:
    // default constructor 
-   SudokuBoard();
+   SudokuBoard() = default;
 
    //paramaterized constructor
    SudokuBoard(Cell[] cells);
@@ -40,7 +40,7 @@ public:
    SudokuBoard(const SudokuBoard&) = delete;
 
    //destructor
-   ~SudokuBoard();
+   ~SudokuBoard() = default;
 
    //getters
    Row getRow(size_t r);
@@ -50,6 +50,12 @@ public:
    Row makeRow(size_t [] values);
    Row makeCol(size_t [] values);
    Square makeSquare(size_t [] values);
+
+   //member functions 
+   public bool isComplete();
+   public bool inValidSolution();
+   public void updatePossibilities();
+   
 
 
 private:
@@ -83,7 +89,7 @@ Square squares_[3][3];
         Cell(const Cell&) = delete;
 
         //destructor
-        ~Cell();
+        ~Cell() = default;
 
         //member functions
         bool isEmpty();
@@ -119,6 +125,9 @@ Square squares_[3][3];
         //destructor 
         ~Row();
 
+        //member functions 
+        bool completeRow();
+
     };
 
 /**
@@ -139,6 +148,9 @@ Square squares_[3][3];
 
     //paramaterized constructor 
     Square(size_t size, Cell[] cells);
+
+    //member functions
+    bool completeSquare();
 
 
     };
