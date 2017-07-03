@@ -1,5 +1,5 @@
 /**
- * \file chunkystring.cpp
+ * \file board.cpp
  *
  * \author Jackson Crewe
  *
@@ -8,48 +8,161 @@
 
  //includes go here
  #include <stdexcept>
+ #include <list>
 
 
- #include "Board.hpp"
+ #include "board.hpp"
 
 
- //SudokuBoard class definition
 
-//parameterized constructor
-SudokuBoard::SudokuBoard(Cell[] cells)
+SudokuBoard::SudokuBoard(Cell cells[81])
 {
-    throw new exception();
+    //construct the rows_ array
+    for (size_t i = 0; i < 9; ++i)
+    {
+        Row row = Row();
+        row.rowSize_ = 0;
+
+        for ( size_t j = 0; j < 9; ++j)
+        {
+            row.row_[j] = cells[i + j];
+            if (!(cells[i + j].isEmpty()))
+            {
+                ++row.rowSize_;
+            }
+        }
+        rows_[i] = row;
+    }
+
+    //construct the columns_ array
+    for(size_t i = 0; i < 81; ++i)
+    {
+        if (i < 9)
+        {
+            columns_[i % 9].row_[0] = cells[i];
+            if (!(cells[i].isEmpty()))
+            {
+                ++columns_[i % 9].rowSize_;
+            }
+
+            break;
+        }
+        if (i < 18 && i >= 9)
+        {
+            columns_[i % 9].row_[1] = cells[i];
+            if (!(cells[i].isEmpty()))
+            {
+                ++columns_[i % 9].rowSize_;
+            }
+
+            break;
+        }
+        if ( i < 27 && i >= 18)
+        {
+            columns_[i % 9].row_[2] = cells[i];
+            if (!(cells[i].isEmpty()))
+            {
+                ++columns_[i % 9].rowSize_;
+            }
+            break;
+        }
+        if ( i < 36 && i >= 27)
+        {
+            columns_[i % 9].row_[3] = cells[i];
+            if (!(cells[i].isEmpty()))
+            {
+                ++columns_[i % 9].rowSize_;
+            }
+
+            break;
+        }
+        if ( i < 45 && i >=36)
+        {
+            columns_[i % 9].row_[4] = cells[i];
+            if (!(cells[i].isEmpty()))
+            {
+                ++columns_[i % 9].rowSize_;
+            }
+
+            break;
+        }
+        if ( i < 54 && i >= 45)
+        {
+            columns_[i % 9].row_[5] = cells[i];
+            if (!(cells[i].isEmpty()))
+            {
+                ++columns_[i % 9].rowSize_;
+            }
+
+            break;
+        }
+        if ( i < 63 && i >= 54)
+        {
+            columns_[i % 9].row_[6] = cells[i];
+            if (!(cells[i].isEmpty()))
+            {
+                ++columns_[i % 9].rowSize_;
+            }
+
+            break;
+        }
+        if ( i < 72 && i >= 63)
+        {
+            columns_[i % 9].row_[7] = cells[i];
+            if (!(cells[i].isEmpty()))
+            {
+                ++columns_[i % 9].rowSize_;
+            }
+
+            break;
+        }
+        if ( i < 81 && i >= 72)
+        {
+            columns_[i % 9].row_[8] = cells[i];
+            if (!(cells[i].isEmpty()))
+            {
+                ++columns_[i % 9].rowSize_;
+            }
+
+            break;
+        }
+    }
 }
 
-SudokuBoard::Row SudokuBoard::getRow(size_t r)
+Row SudokuBoard::getRow(size_t r)
 {
-    throw new exception();
+    return rows_[r];
 }
 
-SudokuBoard::Row SudokuBoard::getCol(size_t c)
+Row SudokuBoard::getCol(size_t c)
 {
-    throw new exception();
-}
-
-SudokuBoard::Row SudokuBoard::makeRow(size_t[] values)
-
-{
-    throw new exception();
-}
-
-SudokuBoard::Row SudokuBoard::makeCol(size_t[] values)
-{
-    throw new exception();
-}
-
-SudokuBoard::Square SudokuBoard::makeSquare(size_t[] values)
-{
-    throw new exception();
+    return columns_[c];
 }
 
 bool SudokuBoard::isComplete()
 {
-    throw new exception();
+    for (Cell cell : rows_ )
+    {
+        if (cell.isEmpty())
+        {
+            return false;
+        }
+    }
+    for (Cell cell: columns_)
+    {
+        if (cell.isEmpty())
+        {
+            return false;
+        }        
+    }
+    for (Cell cell: squares_)
+    {
+        if (cell.isEmpty())
+        {
+            return false;
+        }
+    }
+    return true;
 }
 
 bool SudokuBoard::inValidSolution()
@@ -59,73 +172,20 @@ bool SudokuBoard::inValidSolution()
 
 void SudokuBoard::updatePossibilities()
 {
-    throw new exception();
+    for (Row row: rows_)
+    {
+        row.getPossibilities();
+    }
+    for (Row col : columns_)
+    {
+        col.getPossibilities;
+    }
 }
 
 
-//Cell subclass definition
-
-SudokuBoard::Cell::Cell()
-{
-    throw new exception();
-}
-
-SudokuBoard::Cell::Cell(size_t value, size_t row, size_t col, size_t squareNum)
-{
-    throw new exception();
-}
-
-bool SudokuBoard::Cell::isEmpty()
-{
-    throw new exception();
-}
-
-size_t SudokuBoard::Cell::getValue()
-{
-    throw new exception();
-}
-
-size_t SudokuBoard::Cell::getLocation()
-{
-    throw new exception();
-}
-
-size_t SudokuBoard::Cell::numPossibilities()
-{
-    throw new exception();
-}
 
 
-//Row subclass definition
 
-SudokuBoard::Row::Row()
-{
-    throw new exception();
-}
 
-SudokuBoard::Row::Row(size_t size, Cell[] cells)
-{
-    throw new exception();
-}
 
-bool SudokuBoard::Row::completeRow()
-{
-    throw new exception();
-}
 
-//Square subclass definition
-
-SudokuBoard::Square::Square()
-{
-    throw new exception();
-}
-
-SudokuBoard::Square::Square(size_t size, Cell[] cells)
-{
-    throw new exception();
-}
-
-bool SudokuBoard::Square::completeSquare()
-{
-    throw new exception();
-}

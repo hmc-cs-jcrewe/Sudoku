@@ -1,12 +1,16 @@
 //includes go here
-#include Board.hpp
+#include <stdexcept>
+
+#include "board.hpp"
 //board needs to have 17 prefilled spaces for a single solution to exist
 void solver(Board board)
 {
     //solve the board here 
+    throw new exception();
 }
 
 int main()
 {
     solver();
+    throw new exception();
 }
