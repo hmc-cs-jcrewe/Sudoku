@@ -7,6 +7,8 @@
  */
 
 //includes go here
+#include <stdexcept>
+
 #include "cell.hpp"
 
 using namespace std;
@@ -15,7 +17,7 @@ Cell::Cell()
     throw new exception();
 }
 
-Cell::Cell(size_t value, size_t row, size_t col, size_t squareNum)
+Cell::Cell(int value, size_t row, size_t col, size_t squareNum)
 {
     throw new exception();
 }

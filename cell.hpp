@@ -23,6 +23,7 @@ class Cell
 public:
     //data members 
     size_t value_;
+    bool empty_;
     size_t possibilities_ [9];
     size_t location_[3];
 
@@ -30,10 +31,10 @@ public:
     Cell();
 
     //paramaterized constructor
-    Cell(int value, int row, int col, int squareNum);
+    Cell(int value, size_t row, size_t col, size_t squareNum);
 
     //copy constructor 
-    Cell(const Cell&) = delete;
+    Cell(const Cell&) = default;
 
     //destructor
     ~Cell() = default;

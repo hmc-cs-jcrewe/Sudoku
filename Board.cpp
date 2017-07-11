@@ -141,25 +141,41 @@ Row SudokuBoard::getCol(size_t c)
 
 bool SudokuBoard::isComplete()
 {
-    for (Cell cell : rows_ )
+    for (Row row : rows_)
+    {
+    for (Cell cell : row.row_ )
     {
         if (cell.isEmpty())
         {
             return false;
         }
     }
-    for (Cell cell: columns_)
+    }
+
+    for (Row col : columns_)
+    {
+    for (Cell cell: col.row_)
     {
         if (cell.isEmpty())
         {
             return false;
         }        
     }
-    for (Cell cell: squares_)
+    }
+    for (int j = 0; j < 3; ++j)
     {
-        if (cell.isEmpty())
+        for (int i = 0; i < 3; ++i)
         {
-            return false;
+            for (int k = 0; k <3; ++k)
+            {
+                for( Cell cell: squares_[j][i].square_[k])
+                {
+                    if (cell.isEmpty())
+                    {
+                        return false;
+                    }
+                }
+            }
         }
     }
     return true;
@@ -178,7 +194,7 @@ void SudokuBoard::updatePossibilities()
     }
     for (Row col : columns_)
     {
-        col.getPossibilities;
+        col.getPossibilities();
     }
 }
 

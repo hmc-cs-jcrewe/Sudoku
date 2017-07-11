@@ -32,7 +32,7 @@ public:
     Row(const Row&);
     
     //destructor 
-    ~Row();
+    ~Row() = default;
 
     //member functions 
     bool completeRow();
