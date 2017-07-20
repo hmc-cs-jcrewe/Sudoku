@@ -30,11 +30,13 @@ public:
     //default constructor 
     Cell();
 
-    //paramaterized constructor
+    //paramaterized constructors
     Cell(int value, size_t row, size_t col, size_t squareNum);
 
+	Cell(int value);
+
     //copy constructor 
-    Cell(const Cell&) = default;
+    Cell(const Cell& cell) = default;
 
     //destructor
     ~Cell() = default;

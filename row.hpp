@@ -25,11 +25,11 @@ public:
     //default constructor
     Row();
 
-    //paramaterized constructor
+    //paramaterized constructors
     Row(size_t size, list<Cell> cells);
 
     //copy constructor 
-    Row(const Row&);
+    Row(const Row& row) = default;
     
     //destructor 
     ~Row() = default;

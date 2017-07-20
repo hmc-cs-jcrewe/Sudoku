@@ -139,6 +139,31 @@ Row SudokuBoard::getCol(size_t c)
     return columns_[c];
 }
 
+Row SudokuBoard::makeRow(int values[9])
+{
+	size_t rowSize = 0; 
+	list<Cell> rowCells;
+
+	for (size_t i = 0; i < 9; ++i)
+	{
+		// it is a cell with a value 
+		if (values[i] != -1)
+		{
+			++rowSize;
+			Cell newCell = Cell(values[i]);
+			rowCells.push_back(newCell);
+		}
+	}
+	
+	Row newRow = Row(rowSize, rowCells);
+	return newRow;
+}
+
+Square SudokuBoard::makeSquare(int values[9])
+{
+	throw new exception();
+}
+
 bool SudokuBoard::isComplete()
 {
     for (Row row : rows_)
@@ -197,6 +222,7 @@ void SudokuBoard::updatePossibilities()
         col.getPossibilities();
     }
 }
+
 
 
 

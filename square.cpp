@@ -19,7 +19,7 @@ Square::Square(size_t size, list<Cell> cells)
     throw new exception();
 }
 
-bool Square::completeSquare()
+bool Square::isCompleteSquare()
 {
     throw new exception();
 }
