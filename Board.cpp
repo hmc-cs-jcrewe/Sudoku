@@ -9,6 +9,7 @@
  //includes go here
  #include <stdexcept>
  #include <list>
+ #include <iostream>
 
 
  #include "board.hpp"
@@ -25,7 +26,7 @@ SudokuBoard::SudokuBoard(Cell cells[81])
 
         for ( size_t j = 0; j < 9; ++j)
         {
-            row.row_[j] = cells[i + j];
+            row.cells_[j] = cells[i + j];
             if (!(cells[i + j].isEmpty()))
             {
                 ++row.rowSize_;
@@ -39,7 +40,7 @@ SudokuBoard::SudokuBoard(Cell cells[81])
     {
         if (i < 9)
         {
-            columns_[i % 9].row_[0] = cells[i];
+            columns_[i % 9].cells_[0] = cells[i];
             if (!(cells[i].isEmpty()))
             {
                 ++columns_[i % 9].rowSize_;
@@ -49,7 +50,7 @@ SudokuBoard::SudokuBoard(Cell cells[81])
         }
         if (i < 18 && i >= 9)
         {
-            columns_[i % 9].row_[1] = cells[i];
+            columns_[i % 9].cells_[1] = cells[i];
             if (!(cells[i].isEmpty()))
             {
                 ++columns_[i % 9].rowSize_;
@@ -59,7 +60,7 @@ SudokuBoard::SudokuBoard(Cell cells[81])
         }
         if ( i < 27 && i >= 18)
         {
-            columns_[i % 9].row_[2] = cells[i];
+            columns_[i % 9].cells_[2] = cells[i];
             if (!(cells[i].isEmpty()))
             {
                 ++columns_[i % 9].rowSize_;
@@ -68,7 +69,7 @@ SudokuBoard::SudokuBoard(Cell cells[81])
         }
         if ( i < 36 && i >= 27)
         {
-            columns_[i % 9].row_[3] = cells[i];
+            columns_[i % 9].cells_[3] = cells[i];
             if (!(cells[i].isEmpty()))
             {
                 ++columns_[i % 9].rowSize_;
@@ -78,7 +79,7 @@ SudokuBoard::SudokuBoard(Cell cells[81])
         }
         if ( i < 45 && i >=36)
         {
-            columns_[i % 9].row_[4] = cells[i];
+            columns_[i % 9].cells_[4] = cells[i];
             if (!(cells[i].isEmpty()))
             {
                 ++columns_[i % 9].rowSize_;
@@ -88,7 +89,7 @@ SudokuBoard::SudokuBoard(Cell cells[81])
         }
         if ( i < 54 && i >= 45)
         {
-            columns_[i % 9].row_[5] = cells[i];
+            columns_[i % 9].cells_[5] = cells[i];
             if (!(cells[i].isEmpty()))
             {
                 ++columns_[i % 9].rowSize_;
@@ -98,7 +99,7 @@ SudokuBoard::SudokuBoard(Cell cells[81])
         }
         if ( i < 63 && i >= 54)
         {
-            columns_[i % 9].row_[6] = cells[i];
+            columns_[i % 9].cells_[6] = cells[i];
             if (!(cells[i].isEmpty()))
             {
                 ++columns_[i % 9].rowSize_;
@@ -108,7 +109,7 @@ SudokuBoard::SudokuBoard(Cell cells[81])
         }
         if ( i < 72 && i >= 63)
         {
-            columns_[i % 9].row_[7] = cells[i];
+            columns_[i % 9].cells_[7] = cells[i];
             if (!(cells[i].isEmpty()))
             {
                 ++columns_[i % 9].rowSize_;
@@ -118,7 +119,7 @@ SudokuBoard::SudokuBoard(Cell cells[81])
         }
         if ( i < 81 && i >= 72)
         {
-            columns_[i % 9].row_[8] = cells[i];
+            columns_[i % 9].cells_[8] = cells[i];
             if (!(cells[i].isEmpty()))
             {
                 ++columns_[i % 9].rowSize_;
@@ -259,7 +260,7 @@ void SudokuBoard::updatePossibilities()
 		columns_[i].getPossibilities();
     }
 
-	for (size_t i = 0; i < 3; ++j)
+	for (size_t i = 0; i < 3; ++i)
 	{
 		for (size_t j = 0; j < 3; ++j)
 		{
@@ -268,6 +269,11 @@ void SudokuBoard::updatePossibilities()
 	}
 }
 
+int main()
+{
+    std::cout << "Finally worked" << std::endl;
+    return 0;
+}
 
 
 

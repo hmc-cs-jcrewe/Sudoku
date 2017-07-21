@@ -21,13 +21,13 @@ using namespace std;
 class Cell
 {
     
-private:
-	size_t value_;
-	bool empty_;
+
 public:
     //data members 
-    
-	list<size_t> possibilities_ = list<size_t>{1 ,2, 3,4,5,6,7,8,9 };
+    size_t value_;
+	bool empty_;
+	list<size_t> possibilities_;
+    //row , column, square 
     size_t location_[3];
 
     //default constructor 
@@ -39,7 +39,7 @@ public:
 	Cell(int value);
 
     //copy constructor 
-    Cell(const Cell& cell) = default;
+    Cell(const Cell& cell);
 
     //destructor
     ~Cell() = default;

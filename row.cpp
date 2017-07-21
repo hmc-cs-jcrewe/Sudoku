@@ -49,6 +49,7 @@ bool Row::isCompleteRow()
 			return false;
 		}
 	}
+	return true;
 }
 
 void Row::getPossibilities()
@@ -75,9 +76,4 @@ void Row::getPossibilities()
 			}
 		}
 	}
-}
-
-void Row::setValue(Cell cell)
-{
-
 }
