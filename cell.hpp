@@ -20,8 +20,6 @@
 using namespace std;
 class Cell
 {
-    
-
 public:
     //data members 
     size_t value_;

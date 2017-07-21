@@ -14,7 +14,6 @@
 #include<cassert>
 #include "signal.h"
 
-
 //helper functions -- if necessary
 
 //testing functions 
@@ -28,37 +27,106 @@ bool exampleTest()
 
 bool cellDefaultConstuctorTest()
 {
-	throw new exception();
+	TestingLogger log("Cell Default Constructor Test");
+
+	Cell testCell = Cell();
+	list<size_t> pos = list<size_t>();
+	for ( size_t i = 0; i < 10 ; ++i)
+	{
+		pos.push_back(i);
+	}
+	size_t testLocation[3] = { 0 , 0 , 0 };
+
+	affirm(testCell.empty_ == true);
+	affirm(testCell.value_ == 0);
+	affirm(testCell.location_ == testLocation);
+	affirm(testCell.possibilities_ == pos);
+	affirm(testCell.possibilities_.size() == 10);
 }
 
 bool cellValueConstructorTest()
 {
-	throw new exception();
+	TestingLogger log("Cell Value Constructor Test");
+	int value = 4;
+	Cell testCell = Cell(value);
+
+	list<size_t> pos = list<size_t>();
+	pos.push_back(value);
+	size_t testLocation[3] = { 0 ,0 ,0 };
+
+	affirm(testCell.empty_ == false);
+	affirm(testCell.value_ == value);
+	affirm(testCell.location_ == testLocation);
+	affirm(testCell.possibilities_ == pos);
+	affirm(testCell.possibilities_.size() == 1);
+
 }
 
 bool cellLocationConstructorTest()
 {
-	throw new exception();
+	TestingLogger log("Cell Location Constructor Test");
+	// sets the cell in the 1st row, 3rd column and first square
+	// TODO -- place limits in the constructor that make sense with the board
+	//		ex: row < 10 ; col < 10 ; row and column intersect in sqaure; value isn't already located in the row / col?
+
+	//TODO -- fix this and the value constructor
+	size_t testLocation[3] = { 1 , 3, 1 };
+	int value = 8;
+	list<size_t> pos = list<size_t>();
+	pos.push_back(value);
+
+	Cell testCell = Cell(value, 1, 3, 1);
+
+	affirm(testCell.empty_ == false);
+	affirm(testCell.value_ = value);
+	affirm(testCell.location_ == testLocation);
+	affirm(testCell.possibilities_ == pos);
+	affirm(testCell.possibilities_.size() == 1);
 }
 
 bool cellCopyConstructorTest()
 {
-	throw new exception();
+	TestingLogger log("Cell Default Constructor Test");
+
+	Cell cell = Cell(3, 3, 4, 2);
+	Cell testCell = Cell(cell);
+	affirm(testCell.empty_ == cell.empty_);
+	affirm(testCell.value_ == cell.value_);
+	affirm(testCell.location_ == cell.location_);
+	affirm(testCell.possibilities_ == cell.possibilities_);
 }
 
 bool cellIsEmptyTest()
 {
-	throw new exception();
+	TestingLogger log("Cell isEmpty Test");
+	Cell testCell = Cell();
+	affirm(testCell.isEmpty() == true);
+	testCell.empty_ == false;
+	affirm(testCell.isEmpty() == false);
+
+	Cell testCell2 = Cell(4);
+	affirm(testCell2.isEmpty() == false);
 }
 
 bool cellGetValueTest()
 {
-	throw new exception();
+	TestingLogger log("Cell getValue Test");
+	Cell testCell = Cell();
+	affirm(testCell.getValue() == 0);
+	testCell.value_ = 3; 
+	affirm(testCell.getValue == 3);
+	Cell testCell2 = Cell(7);
+	affirm(testCell2.getValue() == 7);
 }
 
 bool cellNumPossibilitiesTest()
 {
-	throw new exception();
+	TestingLogger log("Cell numPossibilities Test");
+	Cell testCell = Cell();
+	affirm(testCell.numPossibilities() == 10);
+	
+	Cell testCell2 = Cell(4);
+	affirm(testCell2.numPossibilities() == 1);
 }
 
 //Row tests
@@ -83,6 +151,11 @@ bool rowIsCompleteTest()
 }
 
 bool rowGetPossibilitiesTest()
+{
+	throw new exception();
+}
+
+bool rowSetValueTest()
 {
 	throw new exception();
 }
@@ -198,6 +271,7 @@ int main(int argc, char** argv)
 	affirm(rowCopyConstructorTest());
 	affirm(rowIsCompleteTest());
 	affirm(rowGetPossibilitiesTest());
+	affirm(rowSetValueTest());
 	affirm(squareDefaultConstructorTest());
 	affirm(squareListConstructorTest());
 	affirm(squareCopyConstructorTest());

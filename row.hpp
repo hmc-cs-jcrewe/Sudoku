@@ -42,6 +42,7 @@ public:
     //member functions 
     bool isCompleteRow();
     void getPossibilities();
+	size_t setValue(Cell cell);
 
 };
 #endif

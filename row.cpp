@@ -78,3 +78,30 @@ void Row::getPossibilities()
 		}
 	}
 }
+
+size_t Row::setValue(Cell cell)
+{
+	size_t index = 0;
+	if (isCol_)		// use the cell's column location
+	{
+		index = cell.location_[1];
+	}
+	else
+	{
+		index = cell.location_[0];
+	}
+
+	Cell newCell = Cell();
+	newCell.empty_ = false;
+	for (size_t i = 0; i < 3; ++i)
+	{
+		newCell.location_[i] = cell.location_[i];
+	}
+
+	// sets the newCells's possibilities and value to only the first (and hopefully only)
+	// element of cell's possibilities list
+	newCell.possibilities_ = list<size_t>(1, *(cell.possibilities_.begin()));
+	newCell.value_ = *(cell.possibilities_.begin());
+	cells_[index] = newCell;
+	return newCell.value_;
+}

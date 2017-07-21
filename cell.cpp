@@ -69,5 +69,5 @@ size_t Cell::getValue()
 
 size_t Cell::numPossibilities()
 {
-    return possibilities_.size;
+    return possibilities_.size();
 }
