@@ -129,6 +129,23 @@ SudokuBoard::SudokuBoard(Cell cells[81])
     }
 }
 
+SudokuBoard::SudokuBoard(const SudokuBoard& other)
+{
+	for (size_t i = 0; i < 9; ++i)
+	{
+		columns_[i] = other.columns_[i];
+		rows_[i] = other.rows_[i];
+	}
+	
+	for (size_t i = 0; i < 3; ++i)
+	{
+		for (size_t j = 0; j < 3; ++j)
+		{
+			squares_[i][j] = other.squares_[i][j];
+		}
+	}
+}
+
 Row SudokuBoard::getRow(size_t r)
 {
     return rows_[r];
@@ -161,66 +178,94 @@ Row SudokuBoard::makeRow(int values[9])
 
 Square SudokuBoard::makeSquare(int values[9])
 {
-	throw new exception();
+	size_t squareSize = 0;
+	list<Cell> cellList;
+	for (size_t i = 0; i < 9; ++i)
+	{
+		//it is a cell with a value
+		if (values[i] != 0)
+		{
+			++squareSize;
+			Cell newCell = Cell(values[i]);
+			cellList.push_back(newCell);
+		}
+		Square newSquare = Square(squareSize, cellList);
+		return newSquare;
+	}
 }
 
 bool SudokuBoard::isComplete()
 {
     for (Row row : rows_)
     {
-    for (Cell cell : row.row_ )
-    {
-        if (cell.isEmpty())
-        {
-            return false;
-        }
-    }
+		if (!row.isCompleteRow())
+		{
+			return false;
+		}
     }
 
     for (Row col : columns_)
     {
-    for (Cell cell: col.row_)
-    {
-        if (cell.isEmpty())
-        {
-            return false;
-        }        
-    }
+		if (!col.isCompleteRow())
+		{
+			return false;
+		}
     }
     for (int j = 0; j < 3; ++j)
     {
         for (int i = 0; i < 3; ++i)
         {
-            for (int k = 0; k <3; ++k)
-            {
-                for( Cell cell: squares_[j][i].square_[k])
-                {
-                    if (cell.isEmpty())
-                    {
-                        return false;
-                    }
-                }
-            }
+			if (!squares_[j][i].isCompleteSquare())
+			{
+				return false;
+			}
         }
     }
     return true;
 }
 
+//when there are no more possibilities left for any of the cells but the board isn't complete
 bool SudokuBoard::inValidSolution()
 {
-    throw new exception();
+	if (isComplete())
+	{ return false; }
+
+	for (size_t i = 0; i < 9; ++i)
+	{
+		for (size_t j = 0; j < 9; ++j)
+		{
+			if (!(rows_[i].cells_[j].possibilities_.empty()) || !(columns_[i].cells_[j].possibilities_.empty()))
+			{ return false; }
+		}
+	}
+	for (int j = 0; j < 3; ++j)
+	{
+		for (int i = 0; i < 3; ++i)
+		{
+			for (int k = 0; k <9; ++k)
+			{
+				if (!(squares_[j][i].cells_[k].possibilities_.empty()))
+				{ return false; }
+			}
+		}
+	}
 }
 
 void SudokuBoard::updatePossibilities()
 {
-    for (Row row: rows_)
+    for (size_t i = 0; i < 9; ++i)
     {
-        row.getPossibilities();
+		rows_[i].getPossibilities();
+		columns_[i].getPossibilities();
     }
-    for (Row col : columns_)
-    {
-        col.getPossibilities();
-    }
+
+	for (size_t i = 0; i < 3; ++j)
+	{
+		for (size_t j = 0; j < 3; ++j)
+		{
+			squares_[i][j].getPossibilities();
+		}
+	}
 }
 
 

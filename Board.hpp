@@ -40,8 +40,10 @@ public:
     SudokuBoard(Cell cells[81]);
  
     //copy constructor
-    SudokuBoard(const SudokuBoard&) = delete;
- 
+    SudokuBoard(const SudokuBoard& other);
+
+	//TODO -- add assignment operator?
+	 
     //destructor
     ~SudokuBoard() = default;
  

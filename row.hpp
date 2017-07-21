@@ -18,9 +18,10 @@ class Row
     
 public:
     //data members 
-    Cell row_[9];
+   
+	Cell cells_[9];
     //number of cells in the row that contain a value
-    size_t rowSize_ = 0;
+    size_t rowSize_;
 
     //default constructor
     Row();
@@ -29,14 +30,14 @@ public:
     Row(size_t size, list<Cell> cells);
 
     //copy constructor 
-    Row(const Row& row) = default;
+    Row(const Row& row);
     
     //destructor 
     ~Row() = default;
 
     //member functions 
-    bool completeRow();
+    bool isCompleteRow();
     void getPossibilities();
-
+	void setValue(Cell cell);
 };
 #endif

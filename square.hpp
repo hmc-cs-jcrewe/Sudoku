@@ -20,7 +20,7 @@ class Square
 public:
 
     //data members
-    Cell square_[3][3];
+	Cell cells_[9];
     //number of cells in the square that contain a value
     size_t squareSize_;
 
@@ -35,5 +35,7 @@ public:
 
     //member functions
     bool isCompleteSquare();
+
+	void getPossibilities();
 };
 #endif
