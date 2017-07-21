@@ -34,7 +34,7 @@ using namespace std;
 class SudokuBoard {
 public:
    // default constructor 
-    SudokuBoard() = default;
+    SudokuBoard();
  
     //paramaterized constructor
     SudokuBoard(Cell cells[81]);
@@ -50,6 +50,7 @@ public:
     //getters
     Row getRow(size_t r);
     Row getCol(size_t c);
+	Square getSquare(size_t r, size_t c);
  
     //setters
     Row makeRow(int values [9]);
@@ -63,6 +64,7 @@ public:
 private:
     Row rows_[9];
     Row columns_[9];
+	//index reads row then column
     Square squares_[3][3];
 
 };

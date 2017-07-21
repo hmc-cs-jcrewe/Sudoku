@@ -157,6 +157,10 @@ Row SudokuBoard::getCol(size_t c)
     return columns_[c];
 }
 
+Square SudokuBoard::getSquare(size_t r, size_t c)
+{
+	return squares_[r][c];
+}
 Row SudokuBoard::makeRow(int values[9])
 {
 	size_t rowSize = 0; 
@@ -267,12 +271,6 @@ void SudokuBoard::updatePossibilities()
 			squares_[i][j].getPossibilities();
 		}
 	}
-}
-
-int main()
-{
-    std::cout << "Finally worked" << std::endl;
-    return 0;
 }
 
 

@@ -9,10 +9,11 @@
 
 CXXFLAGS    =	-g -stdlib=libc++ -std=c++11 -Wall -Wextra -pedantic 
 CXX	    =	clang++
-TARGETS 	    =	board solver
+TARGETS 	    =	board solver sudokutest
 BOARD_OBJS     =	board.o cell.o row.o square.o
 SOLVER_OBJS    =    solver.o board.o row.o square.o cell.o 
-ALL_OBJS	    =   $(BOARD_OBJS) $(SOLVER_OBJS)
+TEST_OBJS      =    sudokutest.o testing-logger.o board.o cell.o row.o square.o
+ALL_OBJS	    =   $(BOARD_OBJS) $(SOLVER_OBJS) $(TEST_OBJS)
 
 LIBS        =   -ldl -rdynamic -stdlib=libc++
 
@@ -22,6 +23,10 @@ all:	$(TARGETS)
 
 board:	$(BOARD_OBJS)
 	$(CXX) $(LDFLAGS) $(CXXFLAGS) -o $@ -lpthread $(BOARD_OBJS) \
+		$(LIBS)
+
+sudokutest: $(TEST_OBJS)
+	$(CXX) $(LDFLAGS) $(CXXFLAGS) -o -lpthread $(TEST_OBJS) \
 		$(LIBS)
 
 solver: $(SOLVER_OBJS)
@@ -38,4 +43,6 @@ cell.o: cell.cpp cell.hpp
 square.o: square.cpp square.hpp
 row.o: row.cpp row.hpp
 solver.o: solver.cpp board.cpp board.hpp
+sudokutest.o: sudokutest.cpp board.hpp 
+testing-logger.o: testing-logger.cpp testing-logger.hpp
 

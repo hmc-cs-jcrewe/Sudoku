@@ -31,7 +31,7 @@ public:
     Row();
 
     //paramaterized constructors
-    Row(size_t size, list<Cell> cells);
+    Row(size_t size, list<Cell> cells, bool isCol);
 
     //copy constructor 
     Row(const Row& row);

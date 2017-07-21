@@ -19,9 +19,10 @@ Row::Row()
 	}
 }
 
-Row::Row(size_t size, list<Cell> cells)
+Row::Row(size_t size, list<Cell> cells, bool isCol)
 {
 	rowSize_ = size;
+	isCol_ = isCol;
 	size_t j = 0;
 	for (auto i = cells.begin(); i != cells.end(); ++i)
 	{

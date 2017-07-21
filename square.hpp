@@ -31,7 +31,7 @@ public:
     Square(size_t size, list<Cell> cells);
 
 	//copy constructor 
-	Square(const Square& square) = default;
+	Square(const Square& square);
 
     //member functions
     bool isCompleteSquare();
