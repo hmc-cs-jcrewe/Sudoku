@@ -215,9 +215,9 @@ Square SudokuBoard::makeSquare(int values[9])
 			Cell newCell = Cell(values[i]);
 			cellList.push_back(newCell);
 		}
-		Square newSquare = Square(cellList);
-		return newSquare;
 	}
+	Square newSquare = Square(cellList);
+	return newSquare;
 }
 
 bool SudokuBoard::isComplete()
@@ -275,6 +275,7 @@ bool SudokuBoard::inValidSolution()
 			}
 		}
 	}
+	return true;
 }
 
 void SudokuBoard::updatePossibilities()

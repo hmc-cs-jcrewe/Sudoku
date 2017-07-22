@@ -5,7 +5,8 @@
 #include <exception>
 
 #include <string>
-#include <gcc.svn-4_5-branch>
+#include <cxxabi.h>
+
 
 
 
@@ -95,6 +96,7 @@ bool TestingLogger::summarize(bool verbose)
 }
 
 // based on http://stackoverflow.com/a/24997351/847987
+
 
 static std::string demangle(const char* mangled)
 {
