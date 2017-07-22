@@ -31,7 +31,7 @@ public:
     Row();
 
     //paramaterized constructors
-    Row(size_t size, list<Cell> cells, bool isCol);
+    Row(list<Cell> cells, bool isCol);
 
     //copy constructor 
     Row(const Row& row);
@@ -44,5 +44,6 @@ public:
     void getPossibilities();
 	size_t setValue(Cell cell);
 
+	//TODO -- should this have a location data member?
 };
 #endif

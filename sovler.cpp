@@ -1,9 +1,11 @@
+/*
+
 //includes go here
 #include <stdexcept>
 
 #include "board.hpp"
 //board needs to have 17 prefilled spaces for a single solution to exist
-void solver(Board board)
+void solver(SudokuBoard board)
 {
     //solve the board here 
     throw new exception();
@@ -11,6 +13,7 @@ void solver(Board board)
 
 int main()
 {
-    solver();
+    //solver();
     throw new exception();
 }
+*/

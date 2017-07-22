@@ -28,7 +28,7 @@ public:
     Square();
 
     //paramaterized constructor 
-    Square(size_t size, list<Cell> cells);
+    Square(list<Cell> cells);
 
 	//copy constructor 
 	Square(const Square& square);
@@ -37,5 +37,7 @@ public:
     bool isCompleteSquare();
 
 	void getPossibilities();
+
+	//TODO -- should this have a 
 };
 #endif

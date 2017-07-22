@@ -54,6 +54,7 @@ public:
  
     //setters
     Row makeRow(int values [9]);
+	Row makeCol(int values[9]);
     Square makeSquare(int values [9]);
  
     //member functions 

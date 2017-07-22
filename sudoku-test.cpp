@@ -20,7 +20,9 @@
 
 bool exampleTest()
 {
-	throw new exception();
+	TestingLogger log("Example test");
+	affirm(true);
+	return log.summarize();
 }
 //Cell Tests
 
@@ -42,6 +44,8 @@ bool cellDefaultConstuctorTest()
 	affirm(testCell.location_ == testLocation);
 	affirm(testCell.possibilities_ == pos);
 	affirm(testCell.possibilities_.size() == 10);
+
+	return log.summarize();
 }
 
 bool cellValueConstructorTest()
@@ -59,6 +63,8 @@ bool cellValueConstructorTest()
 	affirm(testCell.location_ == testLocation);
 	affirm(testCell.possibilities_ == pos);
 	affirm(testCell.possibilities_.size() == 1);
+
+	return log.summarize();
 
 }
 
@@ -82,6 +88,8 @@ bool cellLocationConstructorTest()
 	affirm(testCell.location_ == testLocation);
 	affirm(testCell.possibilities_ == pos);
 	affirm(testCell.possibilities_.size() == 1);
+
+	return log.summarize();
 }
 
 bool cellCopyConstructorTest()
@@ -94,6 +102,8 @@ bool cellCopyConstructorTest()
 	affirm(testCell.value_ == cell.value_);
 	affirm(testCell.location_ == cell.location_);
 	affirm(testCell.possibilities_ == cell.possibilities_);
+
+	return log.summarize();
 }
 
 bool cellIsEmptyTest()
@@ -101,11 +111,13 @@ bool cellIsEmptyTest()
 	TestingLogger log("Cell isEmpty Test");
 	Cell testCell = Cell();
 	affirm(testCell.isEmpty() == true);
-	testCell.empty_ == false;
+	testCell.empty_ = false;
 	affirm(testCell.isEmpty() == false);
 
 	Cell testCell2 = Cell(4);
 	affirm(testCell2.isEmpty() == false);
+
+	return log.summarize();
 }
 
 bool cellGetValueTest()
@@ -114,30 +126,78 @@ bool cellGetValueTest()
 	Cell testCell = Cell();
 	affirm(testCell.getValue() == 0);
 	testCell.value_ = 3; 
-	affirm(testCell.getValue == 3);
+	affirm(testCell.getValue() == (size_t)3);
 	Cell testCell2 = Cell(7);
 	affirm(testCell2.getValue() == 7);
+
+	return log.summarize();
 }
 
 bool cellNumPossibilitiesTest()
 {
 	TestingLogger log("Cell numPossibilities Test");
 	Cell testCell = Cell();
-	affirm(testCell.numPossibilities() == 10);
+	affirm(testCell.numPossibilities() == 9);
 	
 	Cell testCell2 = Cell(4);
 	affirm(testCell2.numPossibilities() == 1);
+
+	return log.summarize();
 }
 
 //Row tests
 bool rowDefaulConstructorTest()
 {
-	throw new exception();
+	TestingLogger log("Row Default Constructor Test");
+	Row testRow = Row();
+	affirm(testRow.rowSize_ == 0);
+	affirm(testRow.isCol_ == false);
+	for (Cell cell : testRow.cells_)
+	{
+		affirm(cell.isEmpty() == true);
+		affirm(cell.getValue() == 0);
+		affirm(cell.numPossibilities() == 9);
+	}
+	return log.summarize();
 }
 
 bool rowListConstructorTest()
 {
-	throw new exception();
+	TestingLogger log("Row List Constructor Test");
+	Cell cell1 = Cell(1, 1, 0, 1);
+	Cell cell2 = Cell(2, 1, 1, 1);
+	Cell cell3 = Cell(3, 1, 2, 1);
+	Cell cell4 = Cell(4, 1, 3, 4);
+	Cell cell5 = Cell(5, 1, 4, 4);
+	Cell cell6 = Cell(6, 1, 5, 4);
+	Cell cell7 = Cell(7, 1, 6, 7);
+	Cell cell8 = Cell(8, 1, 7, 7);
+	Cell cell9 = Cell(9, 1, 8, 7);
+	list<Cell> cellList = list<Cell>();
+	cellList.push_back(cell1);
+	cellList.push_back(cell2);
+	cellList.push_back(cell3);
+	cellList.push_back(cell4);
+	cellList.push_back(cell5);
+	cellList.push_back(cell6);
+	cellList.push_back(cell7);
+	cellList.push_back(cell8);
+	cellList.push_back(cell9);
+	bool isColumn = false;
+
+	Row testRow = Row(cellList, isColumn);
+
+	affirm(testRow.rowSize_ == 9);
+	affirm(testRow.isCol_ == false);
+	size_t j = 0;
+	for (auto i = cellList.begin(); i != cellList.end(); ++i)
+	{
+		affirm(testRow.cells_[j].empty_ == (*i).empty_);
+		affirm(testRow.cells_[j].value_ == (*i).value_);
+		affirm(testRow.cells_[j].location_ == (*i).location_);
+		affirm(testRow.cells_[j].possibilities_ == (*i).possibilities_);
+	}
+	return log.summarize();
 }
 
 bool rowCopyConstructorTest()

@@ -13,15 +13,16 @@
 Row::Row()
 {
 	rowSize_ = 0;
+	isCol_ = false;
 	for (size_t i = 0; i < 9; ++i)
 	{
 		cells_[i] = Cell();
 	}
 }
 
-Row::Row(size_t size, list<Cell> cells, bool isCol)
+Row::Row(list<Cell> cells, bool isCol)
 {
-	rowSize_ = size;
+	rowSize_ = cells.size();
 	isCol_ = isCol;
 	size_t j = 0;
 	for (auto i = cells.begin(); i != cells.end(); ++i)

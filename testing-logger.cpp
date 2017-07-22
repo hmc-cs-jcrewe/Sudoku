@@ -5,6 +5,7 @@
 #include <exception>
 
 #include <string>
+#include <gcc.svn-4_5-branch>
 
 
 
@@ -92,7 +93,6 @@ bool TestingLogger::summarize(bool verbose)
 	clear();
 	return success;
 }
-/*
 
 // based on http://stackoverflow.com/a/24997351/847987
 
@@ -134,4 +134,3 @@ void TestingLogger::exn_fail(std::exception* exn, std::string what,
 	std::cerr << "!! Unexpected exception: " << exception_details << std::endl;
 	check(false, description);
 }
-*/

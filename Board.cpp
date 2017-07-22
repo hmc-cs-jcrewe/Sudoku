@@ -177,9 +177,30 @@ Row SudokuBoard::makeRow(int values[9])
 		}
 	}
 	
-	Row newRow = Row(rowSize, rowCells);
+	Row newRow = Row(rowCells, false);
 	return newRow;
 }
+
+Row SudokuBoard::makeCol(int values[9])
+{
+	size_t rowSize = 0;
+	list<Cell> rowCells;
+
+	for (size_t i = 0; i < 9; ++i)
+	{
+		// it is a cell with a value 
+		if (values[i] != -1)
+		{
+			++rowSize;
+			Cell newCell = Cell(values[i]);
+			rowCells.push_back(newCell);
+		}
+	}
+
+	Row newRow = Row(rowCells, true);
+	return newRow;
+}
+
 
 Square SudokuBoard::makeSquare(int values[9])
 {
@@ -194,7 +215,7 @@ Square SudokuBoard::makeSquare(int values[9])
 			Cell newCell = Cell(values[i]);
 			cellList.push_back(newCell);
 		}
-		Square newSquare = Square(squareSize, cellList);
+		Square newSquare = Square(cellList);
 		return newSquare;
 	}
 }

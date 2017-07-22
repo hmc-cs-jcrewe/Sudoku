@@ -18,9 +18,9 @@ Square::Square()
     }
 }
 
-Square::Square(size_t size, list<Cell> cells)
+Square::Square(list<Cell> cells)
 {
-    squareSize_ = size;
+    squareSize_ = cells.size();
     size_t j = 0;
     for (auto i = cells.begin(); i != cells.end(); ++i)
     {
@@ -28,6 +28,15 @@ Square::Square(size_t size, list<Cell> cells)
         cells_[j] = newCell;
         ++j;
     }
+}
+
+Square::Square(const Square & square)
+{
+	squareSize_ = square.squareSize_;
+	for (size_t i = 0; i < 10; ++i)
+	{
+		cells_[i] = square.cells_[i];
+	}
 }
 
 bool Square::isCompleteSquare()
