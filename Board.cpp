@@ -12,7 +12,7 @@
  #include <iostream>
 
 
- #include "board.hpp"
+ #include "Board.hpp"
 
 
 

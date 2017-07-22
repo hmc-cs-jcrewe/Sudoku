@@ -59,7 +59,7 @@ bool cellValueConstructorTest()
 	size_t testLocation[3] = { 0 ,0 ,0 };
 
 	affirm(testCell.empty_ == false);
-	affirm(testCell.value_ == value);
+	affirm(testCell.value_ == (size_t)value);
 	affirm(testCell.location_ == testLocation);
 	affirm(testCell.possibilities_ == pos);
 	affirm(testCell.possibilities_.size() == 1);
