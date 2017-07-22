@@ -42,6 +42,11 @@ public:
     //destructor
     ~Cell() = default;
 
+    //operators
+    bool operator==(const Cell& rhs);
+    bool operator!=(const Cell& rhs);
+    
+
     //member functions
     bool isEmpty();
     size_t getValue();

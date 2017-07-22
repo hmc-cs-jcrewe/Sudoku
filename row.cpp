@@ -85,11 +85,11 @@ size_t Row::setValue(Cell cell)
 	size_t index = 0;
 	if (isCol_)		// use the cell's column location
 	{
-		index = cell.location_[1];
+		index = cell.location_[0];
 	}
 	else
 	{
-		index = cell.location_[0];
+		index = cell.location_[1];
 	}
 
 	Cell newCell = Cell();
