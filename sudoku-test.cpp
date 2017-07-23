@@ -640,7 +640,6 @@ bool squareGetPossibilitiesTest()
 	}
 
 	Cell setVal2 = Cell (4, 2 , 1, 1);
-	std:: cout << "location: " << " -- row " << setVal2.location_[0] << " -- column " << setVal2.location_[1] << " -- square " << setVal2.location_[2]<<std::endl;
 	square1.setValue(setVal2);
 
 	auto j = pos.begin(); // pointing at 1
@@ -652,7 +651,6 @@ bool squareGetPossibilitiesTest()
 	
 	for (size_t i = 0 ; i < 9; ++i)
 	{
-		std::cout << "Cell num: " << i << " -- "<<square1.cells_[i].getValue() <<std::endl;
 		if (i == 0)
 		{
 			affirm(square1.cells_[i].possibilities_.size() == 1);
@@ -678,7 +676,30 @@ bool squareGetPossibilitiesTest()
 
 bool boardDefaultConstructorTest()
 {
-	throw new exception();
+	TestingLogger log( "Board Default Constructor Test");
+	SudokuBoard testBoard = SudokuBoard();
+	for (size_t i = 0; i < 9; ++i)
+	{
+		for (Cell testCell : (testBoard.getRow(i)).cells_)
+		{
+			affirm(testCell == Cell());
+		}
+		for (Cell testCell : (testBoard.getRow(i)).cells_)
+		{
+			affirm(testCell == Cell());
+		}
+	}
+	for (size_t j = 0 ; j < 3 ; ++j)
+	{
+		for (size_t k = 0; k < 3; ++k)
+		{
+			for (Cell testCell : testBoard.getSquare(j,k).cells_)
+			{
+				affirm (testCell == Cell());
+			}
+		}
+	}
+	return log.summarize();
 }
 
 bool boardCellConstructorTest()
@@ -768,7 +789,7 @@ int main()
 	affirm(squareIsCompleteTest());
 	affirm(squareSetValueTest());
 	affirm(squareGetPossibilitiesTest());
-//	affirm(boardDefaultConstructorTest());
+	affirm(boardDefaultConstructorTest());
 //	affirm(boardCellConstructorTest());
 //	affirm(boardCopyConstructorTest());
 //	affirm(boardGetRowTest());

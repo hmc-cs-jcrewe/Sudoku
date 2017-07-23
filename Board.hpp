@@ -34,7 +34,7 @@ using namespace std;
 class SudokuBoard {
 public:
    // default constructor 
-    SudokuBoard();
+    SudokuBoard() = default;
  
     //paramaterized constructor
     SudokuBoard(Cell cells[81]);
@@ -43,7 +43,8 @@ public:
     SudokuBoard(const SudokuBoard& other);
 
 	//TODO -- add assignment operator?
-	 
+	 //operator=(const Board& rhs);
+
     //destructor
     ~SudokuBoard() = default;
  
