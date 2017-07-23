@@ -33,7 +33,7 @@ Square::Square(list<Cell> cells)
 Square::Square(const Square & square)
 {
 	squareSize_ = square.squareSize_;
-	for (size_t i = 0; i < 10; ++i)
+	for (size_t i = 0; i < 9; ++i)
 	{
 		cells_[i] = square.cells_[i];
 	}
@@ -75,4 +75,58 @@ void Square::getPossibilities()
 			}
 		}
 	}
+}
+
+size_t Square::setValue (Cell cell)
+{
+	int index = 100;
+	if (cell.location_[0] == 0 || cell.location_[0] == 3 || cell.location_[0] == 6)		//top row of the square
+	{
+		if(cell.location_[1] == 0 || cell.location_[1] == 3 || cell.location_[1] == 6) 		//first column 
+		{
+			index = 0;
+		}
+		if(cell.location_[1] == 1 || cell.location_[1] == 4 || cell.location_[1] == 7) 		//middle column
+		{
+			index = 1;
+		}
+		if(cell.location_[1] == 2 || cell.location_[1] == 5 || cell.location_[1] == 8) 		//last column
+		{
+			index = 2;
+		}
+	}
+	if(cell.location_[0] == 1 || cell.location_[0] == 4 || cell.location_[0] == 7)		//middle row of the square
+	{
+		if(cell.location_[1] == 0 || cell.location_[1] == 3 || cell.location_[1] == 6) 		//first column 
+		{
+			index = 3;
+		}
+		if(cell.location_[1] == 1 || cell.location_[1] == 4 || cell.location_[1] == 7) 		//middle column
+		{
+			index = 4;
+		}
+		if(cell.location_[1] == 2 || cell.location_[1] == 5 || cell.location_[1] == 8 ) 		//last column
+		{
+			index = 5;
+		}
+	}
+	if(cell.location_[0] == 2 || cell.location_[0] == 5 || cell.location_[0] == 8)		//bottom row of the square
+	{
+		if(cell.location_[1] == 0 || cell.location_[1] == 3 || cell.location_[1] == 6) 		//first column 
+		{
+			index = 6;
+		}
+		if(cell.location_[1] == 1 || cell.location_[1] == 4 || cell.location_[1] == 7) 		//middle column
+		{
+			index = 7;
+		}
+		if(cell.location_[1] == 2 || cell.location_[1] == 5 || cell.location_[1] == 8) 		//last column
+		{
+			index = 8;
+		}
+	}
+
+	cells_[index] = cell;
+	++squareSize_;
+	return cell.getValue();
 }

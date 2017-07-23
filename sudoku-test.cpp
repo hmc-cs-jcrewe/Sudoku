@@ -87,7 +87,7 @@ bool cellLocationConstructorTest()
 	TestingLogger log("Cell Location Constructor Test");
 	// sets the cell in the 1st row, 3rd column and first square
 	// TODO -- place limits in the constructor that make sense with the board
-	//		ex: row < 10 ; col < 10 ; row and column intersect in sqaure; value isn't already located in the row / col?
+	//		ex: row < 10 ; col < 10 ; row and column intersect in square; value isn't already located in the row / col?
 
 	//TODO -- fix this and the value constructor
 	size_t testLocation[3] = { 1 , 3, 1 };
@@ -416,11 +416,6 @@ bool rowGetPossibilitiesTest()
 		}
 	}
 
-	for ( auto i = pos.begin(); i != pos.end(); ++i)
-	{
-		std::cout << *i << std::endl;
-	}
-
 	Cell setVal2 = Cell(2, 4 ,7 ,6);
 	row1.setValue(setVal2);
 	auto j = pos.begin();
@@ -442,17 +437,6 @@ bool rowGetPossibilitiesTest()
 		}
 	}
 
-
-
-
-
-	for ( auto i = pos.begin(); i != pos.end(); ++i)
-	{
-		std::cout << *i << std::endl;
-	}
-
-
-
 	return log.summarize();
 }
 
@@ -464,30 +448,234 @@ bool rowGetPossibilitiesTest()
 
 bool squareDefaultConstructorTest()
 {
-	throw new exception();
+	TestingLogger log("Square Default Constructor Test");
+	Square testSquare = Square();
+	affirm (testSquare.squareSize_ == 0);
+	for (Cell cell : testSquare.cells_)
+	{
+		affirm(cell.isEmpty() == true);
+		affirm(cell.getValue() == 0);
+		affirm(cell.numPossibilities() == 9);
+	}
+	return log.summarize();
 }
 
 bool squareListConstructorTest()
 {
-	throw new exception();
+	TestingLogger log("Square List Constructor Test");
+	Cell cell1 = Cell(1, 1, 0, 1);
+	Cell cell2 = Cell(2, 1, 1, 1);
+	Cell cell3 = Cell(3, 1, 2, 1);
+	Cell cell4 = Cell(4, 1, 3, 4);
+	Cell cell5 = Cell(5, 1, 4, 4);
+	Cell cell6 = Cell(6, 1, 5, 4);
+	Cell cell7 = Cell(7, 1, 6, 7);
+	Cell cell8 = Cell(8, 1, 7, 7);
+	Cell cell9 = Cell(9, 1, 8, 7);
+	list<Cell> cellList = list<Cell>();
+	cellList.push_back(cell1);
+	cellList.push_back(cell2);
+	cellList.push_back(cell3);
+	cellList.push_back(cell4);
+	cellList.push_back(cell5);
+	cellList.push_back(cell6);
+	cellList.push_back(cell7);
+	cellList.push_back(cell8);
+	cellList.push_back(cell9);
+
+	Square testSquare = Square(cellList);
+
+	affirm(testSquare.squareSize_ == 9);
+	size_t j = 0;
+	for (auto i = cellList.begin(); i != cellList.end(); ++i)
+	{
+		affirm(testSquare.cells_[j] == (*i));
+		++j;
+	}
+	return log.summarize();
 }
 
 bool squareCopyConstructorTest()
 {
-	throw new exception();
+	TestingLogger log("Square List Constructor Test");
+
+	Cell cell1 = Cell(1, 1, 0, 1);
+	Cell cell2 = Cell(2, 1, 1, 1);
+	Cell cell3 = Cell(3, 1, 2, 1);
+	Cell cell4 = Cell(4, 1, 3, 4);
+	Cell cell5 = Cell(5, 1, 4, 4);
+	Cell cell6 = Cell(6, 1, 5, 4);
+	Cell cell7 = Cell(7, 1, 6, 7);
+	Cell cell8 = Cell(8, 1, 7, 7);
+	Cell cell9 = Cell(9, 1, 8, 7);
+	list<Cell> cellList = list<Cell>();
+	cellList.push_back(cell1);
+	cellList.push_back(cell2);
+	cellList.push_back(cell3);
+	cellList.push_back(cell4);
+	cellList.push_back(cell5);
+	cellList.push_back(cell6);
+	cellList.push_back(cell7);
+	cellList.push_back(cell8);
+	cellList.push_back(cell9);
+
+	Square baseSquare = Square(cellList);
+	
+	Square testSquare  = Square(baseSquare);
+	affirm (testSquare.squareSize_ == baseSquare.squareSize_);
+	for (size_t i = 0; i < 9; ++i)
+	{
+		affirm(testSquare.cells_[i] == baseSquare.cells_[i]);
+	}
+
+	return log.summarize();
+
 }
 
 bool squareIsCompleteTest()
 {
-	throw new exception();
+	TestingLogger log("Square isComplete Test");
+
+	Square square1 = Square();
+	affirm(square1.isCompleteSquare() == false);
+
+	Cell cell1 = Cell(1, 1, 0, 1);
+	Cell cell2 = Cell(2, 1, 1, 1);
+	Cell cell3 = Cell(3, 1, 2, 1);
+	Cell cell4 = Cell(4, 1, 3, 4);
+	Cell cell5 = Cell(0, 1, 4, 4);
+	Cell cell6 = Cell(6, 1, 5, 4);
+	Cell cell7 = Cell(7, 1, 6, 7);
+	Cell cell8 = Cell(8, 1, 7, 7);
+	Cell cell9 = Cell(9, 1, 8, 7);
+	list<Cell> cellList = list<Cell>();
+	cellList.push_back(cell1);
+	cellList.push_back(cell2);
+	cellList.push_back(cell3);
+	cellList.push_back(cell4);
+	cellList.push_back(cell5);
+	cellList.push_back(cell6);
+	cellList.push_back(cell7);
+	cellList.push_back(cell8);
+	cellList.push_back(cell9);
+
+	Square testSquare = Square(cellList);
+	affirm(testSquare.isCompleteSquare() == false);
+	testSquare.cells_[4] = Cell(5,1,4,4);
+	affirm(testSquare.isCompleteSquare() == true);
+
+	return log.summarize();
+}
+
+bool squareSetValueTest()
+{
+	TestingLogger log("Square setValue Test");
+	Square testSquare = Square();
+
+	Cell testCell = Cell(3 , 1 , 2 , 1);
+	affirm(testSquare.setValue(testCell) == 3);
+	affirm(testSquare.squareSize_ == 1);
+	affirm(testSquare.cells_[5] == testCell);
+
+	Cell testCell2 = Cell(4,0,2,1);
+	affirm(testSquare.setValue(testCell2) == 4);
+	affirm(testSquare.squareSize_ == 2);
+	affirm(testSquare.cells_[2] == testCell2);
+
+	Cell testCell3 = Cell(1, 0 , 0 , 1);
+	affirm(testSquare.setValue(testCell3) == 1);
+	affirm(testSquare.squareSize_ == 3);
+	affirm(testSquare.cells_[0] == testCell3);
+
+	Cell testCell4 = Cell(7, 2 ,2 ,1);
+	affirm(testSquare.setValue(testCell4) == 7);
+	affirm(testSquare.squareSize_ == 4);
+	affirm(testSquare.cells_[8] == testCell4);
+	
+	Cell testCell5 = Cell (4, 2 , 1, 1);
+	affirm(testSquare.setValue(testCell5) == 4);
+	affirm(testSquare.squareSize_ == 5);
+	affirm(testSquare.cells_[7] == testCell5);
+	affirm(!(testSquare.cells_[8] ==testCell5));
+
+	return log.summarize();
 }
 
 bool squareGetPossibilitiesTest()
 {
-	throw new exception();
+	TestingLogger log("Square Get Possibilities Test");
+
+	list<size_t> pos = list<size_t>();
+	for(size_t i = 1; i < 10; ++i) 
+	{
+		pos.push_back(i);
+	}
+
+	Square square1 = Square();
+	square1.getPossibilities();
+	for(size_t i = 0; i < 9; ++i)
+	{
+		affirm(square1.cells_[i].possibilities_ == pos);
+	}
+	
+	Cell setVal = Cell(2 , 0 , 0 , 1);
+	square1.setValue(setVal);
+	
+	auto i = pos.begin(); // points at 1
+	++i;				  // points at 2
+	pos.erase(i);
+
+	square1.getPossibilities();
+
+	for(size_t i = 0; i < 9; ++i)
+	{
+		if (i == 0)
+		{
+			affirm(square1.cells_[i].possibilities_.size() == 1);
+			affirm(square1.cells_[i].getValue() == 2);
+			affirm(square1.cells_[i].isEmpty() == false);
+		} else {
+			affirm(square1.cells_[i].possibilities_ == pos);
+		}
+	}
+
+	Cell setVal2 = Cell (4, 2 , 1, 1);
+	std:: cout << "location: " << " -- row " << setVal2.location_[0] << " -- column " << setVal2.location_[1] << " -- square " << setVal2.location_[2]<<std::endl;
+	square1.setValue(setVal2);
+
+	auto j = pos.begin(); // pointing at 1
+	++j; 				  // pointing at 3
+	++j;				  // pointing at 4
+	pos.erase(j);
+
+	square1.getPossibilities();
+	
+	for (size_t i = 0 ; i < 9; ++i)
+	{
+		std::cout << "Cell num: " << i << " -- "<<square1.cells_[i].getValue() <<std::endl;
+		if (i == 0)
+		{
+			affirm(square1.cells_[i].possibilities_.size() == 1);
+			affirm(square1.cells_[i].getValue() == 2);
+			affirm(square1.cells_[i].isEmpty() == false);
+		}
+		else if ( i == 7)
+		{
+			affirm(square1.cells_[i].possibilities_.size() == 1);
+			affirm(square1.cells_[i].getValue() == 4);
+			affirm(square1.cells_[i].isEmpty() == false);
+		} else {
+			affirm(square1.cells_[i].possibilities_ == pos);
+		}
+	}
+
+	return log.summarize();
 }
 
+
 //BoardTests
+
+
 bool boardDefaultConstructorTest()
 {
 	throw new exception();
@@ -574,11 +762,12 @@ int main()
 	affirm(rowIsCompleteTest());
 	affirm(rowSetValueTest());
 	affirm(rowGetPossibilitiesTest());
-//	affirm(squareDefaultConstructorTest());
-//	affirm(squareListConstructorTest());
-//	affirm(squareCopyConstructorTest());
-//	affirm(squareIsCompleteTest());
-//	affirm(squareGetPossibilitiesTest());
+	affirm(squareDefaultConstructorTest());
+	affirm(squareListConstructorTest());
+	affirm(squareCopyConstructorTest());
+	affirm(squareIsCompleteTest());
+	affirm(squareSetValueTest());
+	affirm(squareGetPossibilitiesTest());
 //	affirm(boardDefaultConstructorTest());
 //	affirm(boardCellConstructorTest());
 //	affirm(boardCopyConstructorTest());

@@ -38,6 +38,8 @@ public:
 
 	void getPossibilities();
 
-	//TODO -- should this have a 
+	size_t setValue(Cell cell); 
+
+    //TODO -- add a location to this class
 };
 #endif
