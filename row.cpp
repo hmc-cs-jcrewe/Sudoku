@@ -48,7 +48,7 @@ bool Row::operator==(const Row& rhs)
 	{
 		for (size_t i = 0; i < 9; ++i)
 		{
-			if (!(rhs.cells_[i] == cells_[i]))
+			if (!(cells_[i] == rhs.cells_[i]))
 			{
 				return false;
 			}
@@ -98,6 +98,21 @@ void Row::getPossibilities()
 			}
 		}
 	}
+}
+
+Cell Row::minPossibilities()
+{
+	size_t minVal = 10;	//there will never actually be 10 possibilities, so this is a safe max value to start with 
+	Cell minCell = Cell();
+	for (Cell cell : cells_)
+	{
+		if (cell.numPossibilities() < minVal && cell.numPossibilities != 1)
+		{
+			minVal = cell.numPossibilities();
+			minCell = cell;
+		}
+	}
+	return minCell;
 }
 
 size_t Row::setValue(Cell cell)

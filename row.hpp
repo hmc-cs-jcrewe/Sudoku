@@ -46,6 +46,7 @@ public:
     //member functions 
     bool isCompleteRow();
     void getPossibilities();
+	Cell minPossibilities();
 	size_t setValue(Cell cell);
 
 	//TODO -- should this have a location data member?

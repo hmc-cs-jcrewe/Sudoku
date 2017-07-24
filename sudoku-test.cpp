@@ -149,6 +149,22 @@ bool cellEqualsTest()
 	return log.summarize();
 }
 
+bool cellAssignmentTest()
+{
+	TestingLogger log("Cell Assignment Operator Test");
+
+	Cell baseCell = Cell();
+	Cell testCell = baseCell;
+	affirm(testCell == baseCell);
+
+	Cell baseCell2 = Cell(3, 1, 1, 1);
+	Cell testCell2 = baseCell;
+	affirm(testCell2 == baseCell2);
+	affirm(!(testCell2 == baseCell));
+
+	return log.summarize();
+}
+
 bool cellIsEmptyTest()
 {
 	TestingLogger log("Cell isEmpty Test");
@@ -344,6 +360,7 @@ bool rowEqualsTest()
 
 	return log.summarize();
 }
+
 bool rowIsCompleteTest()
 {
 	TestingLogger log("Row is complete Test");
@@ -462,6 +479,31 @@ bool rowGetPossibilitiesTest()
 			affirm(row1.cells_[i].possibilities_ == pos);				
 		}
 	}
+
+	return log.summarize();
+}
+
+bool rowMinPossibilitiesTest()
+{
+	TestingLogger log("Row minPossibilities Test");
+	Row row = Row();
+	affirm(row.minPossibilities() == Cell());
+
+
+	list<Cell> cellList = list<Cell>();
+	Cell minCell = Cell(0, 1, 1, 2);
+	minCell.possibilities_.remove(4);
+	minCell.possibilities_.remove(2);
+	minCell.possibilities_.remove(7);
+	cellList.push_back(minCell);
+	for (size_t i = 0; i < 4; ++i)
+	{
+		cellList.push_front(Cell());
+		cellList.push_back(Cell());
+	}
+	Row testRow = Row(cellList, false);
+	affirm(testRow.minPossibilities() == minCell);
+	affirm((testRow.minPossibilities()).possibilities_ == minCell.possibilities_);
 
 	return log.summarize();
 }
@@ -816,61 +858,62 @@ bool boardCellConstructorTest()
 	cells2[18] = Cell (6 , 2 , 0 , 1);
 	cells2[57] = Cell (4 , 6 , 3 , 8);
 	
+	SudokuBoard testBoard2 = SudokuBoard(cells2);
 	
-	affirm(testBoard1.rows_[3] == Row());
-	affirm(testBoard1.rows_[4] == Row());
-	affirm(testBoard1.rows_[5] == Row());
-	affirm(testBoard1.rows_[7] == Row());
-	affirm(testBoard1.rows_[8] == Row());
-
-	
-	affirm(testBoard1.squares_[3] == Square());
-	affirm(testBoard1.squares_[4] == Square());
-	affirm(testBoard1.squares_[5] == Square());
-	affirm(testBoard1.squares_[6] == Square());
-	affirm(testBoard1.squares_[8] == Square());
-
-	affirm(testBoard1.rows_[0].cells_[0] == Cell (1, 0, 0, 1));
-	affirm(testBoard1.rows_[0].cells_[1] == Cell (2, 0, 1, 1));
-	affirm(testBoard1.rows_[0].cells_[2] == Cell (3, 0, 2, 1));
-	affirm(testBoard1.rows_[0].cells_[3] == Cell (4, 0, 3, 2));
-	affirm(testBoard1.rows_[0].cells_[4] == Cell (5, 0, 4, 2));
-	affirm(testBoard1.rows_[0].cells_[5] == Cell (6, 0, 5, 2));
-	affirm(testBoard1.rows_[0].cells_[6] == Cell (7, 0, 6, 3));
-	affirm(testBoard1.rows_[0].cells_[7] == Cell (8, 0, 7, 3));
-	affirm(testBoard1.rows_[0].cells_[8] == Cell (9, 0, 8, 3));
-
-	affirm(testBoard1.rows_[1].cells_[4] == Cell (6 , 1 , 4 , 2));
-	affirm(testBoard1.rows_[2].cells_[0] == Cell (6 , 2 , 0 , 1));
-	affirm(testBoard1.rows_[6].cells_[3] == Cell (4 , 6 , 3 , 8));
-
-	affirm(testBoard1.columns_[0].cells_[0] == Cell(1, 0, 0, 1));
-	affirm(testBoard1.columns_[1].cells_[0] == Cell(2, 0, 1, 1));
-	affirm(testBoard1.columns_[2].cells_[0] == Cell(3, 0, 2, 1));
-	affirm(testBoard1.columns_[3].cells_[0] == Cell(4, 0, 3, 2));
-	affirm(testBoard1.columns_[4].cells_[0] == Cell(5, 0, 4, 2));
-	affirm(testBoard1.columns_[5].cells_[0] == Cell(6, 0, 5, 2));
-	affirm(testBoard1.columns_[6].cells_[0] == Cell(7, 0, 6, 3));
-	affirm(testBoard1.columns_[7].cells_[0] == Cell(8, 0, 7, 3));
-	affirm(testBoard1.columns_[8].cells_[0] == Cell(9, 0, 8, 3));
-
-	affirm(testBoard1.columns_[4].cells_[1] == Cell(6, 1, 4, 2));
-	affirm(testBoard1.columns_[0].cells_[2] == Cell(6, 2, 0, 1));
-	affirm(testBoard1.columns_[3].cells_[6] == Cell(4, 6, 3, 8));
-
-	affirm(testBoard1.squares_[0].cells_[0] == Cell(1, 0, 0, 1));
-	affirm(testBoard1.squares_[0].cells_[1] == Cell(2, 0, 1, 1));
-	affirm(testBoard1.squares_[0].cells_[2] == Cell(3, 0, 2, 1));
-	affirm(testBoard1.squares_[1].cells_[0] == Cell(4, 0, 3, 2));
-	affirm(testBoard1.squares_[1].cells_[1] == Cell(5, 0, 4, 2));
-	affirm(testBoard1.squares_[1].cells_[2] == Cell(6, 0, 5, 2));
-	affirm(testBoard1.squares_[2].cells_[0] == Cell(7, 0, 6, 3));
-	affirm(testBoard1.squares_[2].cells_[1] == Cell(8, 0, 7, 3));
-	affirm(testBoard1.squares_[2].cells_[2] == Cell(9, 0, 8, 3));
-
-	affirm(testBoard1.squares_[1].cells_[4] == Cell(6, 1, 4, 2));
-	affirm(testBoard1.squares_[0].cells_[6] == Cell(6, 2, 0, 1));
-	affirm(testBoard1.squares_[7].cells_[0] == Cell(4, 6, 3, 8));
+	affirm(testBoard2.rows_[3] == Row());
+	affirm(testBoard2.rows_[4] == Row());
+	affirm(testBoard2.rows_[5] == Row());
+	affirm(testBoard2.rows_[7] == Row());
+	affirm(testBoard2.rows_[8] == Row());
+					
+					
+	affirm(testBoard2.squares_[3] == Square());
+	affirm(testBoard2.squares_[4] == Square());
+	affirm(testBoard2.squares_[5] == Square());
+	affirm(testBoard2.squares_[6] == Square());
+	affirm(testBoard2.squares_[8] == Square());
+					
+	affirm(testBoard2.rows_[0].cells_[0] == Cell (1, 0, 0, 1));
+	affirm(testBoard2.rows_[0].cells_[1] == Cell (2, 0, 1, 1));
+	affirm(testBoard2.rows_[0].cells_[2] == Cell (3, 0, 2, 1));
+	affirm(testBoard2.rows_[0].cells_[3] == Cell (4, 0, 3, 2));
+	affirm(testBoard2.rows_[0].cells_[4] == Cell (5, 0, 4, 2));
+	affirm(testBoard2.rows_[0].cells_[5] == Cell (6, 0, 5, 2));
+	affirm(testBoard2.rows_[0].cells_[6] == Cell (7, 0, 6, 3));
+	affirm(testBoard2.rows_[0].cells_[7] == Cell (8, 0, 7, 3));
+	affirm(testBoard2.rows_[0].cells_[8] == Cell (9, 0, 8, 3));
+					
+	affirm(testBoard2.rows_[1].cells_[4] == Cell (6 , 1 , 4 , 2));
+	affirm(testBoard2.rows_[2].cells_[0] == Cell (6 , 2 , 0 , 1));
+	affirm(testBoard2.rows_[6].cells_[3] == Cell (4 , 6 , 3 , 8));
+					
+	affirm(testBoard2.columns_[0].cells_[0] == Cell(1, 0, 0, 1));
+	affirm(testBoard2.columns_[1].cells_[0] == Cell(2, 0, 1, 1));
+	affirm(testBoard2.columns_[2].cells_[0] == Cell(3, 0, 2, 1));
+	affirm(testBoard2.columns_[3].cells_[0] == Cell(4, 0, 3, 2));
+	affirm(testBoard2.columns_[4].cells_[0] == Cell(5, 0, 4, 2));
+	affirm(testBoard2.columns_[5].cells_[0] == Cell(6, 0, 5, 2));
+	affirm(testBoard2.columns_[6].cells_[0] == Cell(7, 0, 6, 3));
+	affirm(testBoard2.columns_[7].cells_[0] == Cell(8, 0, 7, 3));
+	affirm(testBoard2.columns_[8].cells_[0] == Cell(9, 0, 8, 3));
+					
+	affirm(testBoard2.columns_[4].cells_[1] == Cell(6, 1, 4, 2));
+	affirm(testBoard2.columns_[0].cells_[2] == Cell(6, 2, 0, 1));
+	affirm(testBoard2.columns_[3].cells_[6] == Cell(4, 6, 3, 8));
+					
+	affirm(testBoard2.squares_[0].cells_[0] == Cell(1, 0, 0, 1));
+	affirm(testBoard2.squares_[0].cells_[1] == Cell(2, 0, 1, 1));
+	affirm(testBoard2.squares_[0].cells_[2] == Cell(3, 0, 2, 1));
+	affirm(testBoard2.squares_[1].cells_[0] == Cell(4, 0, 3, 2));
+	affirm(testBoard2.squares_[1].cells_[1] == Cell(5, 0, 4, 2));
+	affirm(testBoard2.squares_[1].cells_[2] == Cell(6, 0, 5, 2));
+	affirm(testBoard2.squares_[2].cells_[0] == Cell(7, 0, 6, 3));
+	affirm(testBoard2.squares_[2].cells_[1] == Cell(8, 0, 7, 3));
+	affirm(testBoard2.squares_[2].cells_[2] == Cell(9, 0, 8, 3));
+					
+	affirm(testBoard2.squares_[1].cells_[4] == Cell(6, 1, 4, 2));
+	affirm(testBoard2.squares_[0].cells_[6] == Cell(6, 2, 0, 1));
+	affirm(testBoard2.squares_[7].cells_[0] == Cell(4, 6, 3, 8));
 
 
 	return log.summarize();
@@ -878,22 +921,185 @@ bool boardCellConstructorTest()
 
 bool boardCopyConstructorTest()
 {
-	throw new exception();
+	TestingLogger log("Board Copy Constructor Test");
+
+	Cell cells2[81];
+	for (size_t i = 0; i < 81; ++i)
+	{
+		cells2[i] = Cell();
+	}
+	//firt row
+	cells2[0] = Cell(1, 0, 0, 1);
+	cells2[1] = Cell(2, 0, 1, 1);
+	cells2[2] = Cell(3, 0, 2, 1);
+	cells2[3] = Cell(4, 0, 3, 2);
+	cells2[4] = Cell(5, 0, 4, 2);
+	cells2[5] = Cell(6, 0, 5, 2);
+	cells2[6] = Cell(7, 0, 6, 3);
+	cells2[7] = Cell(8, 0, 7, 3);
+	cells2[8] = Cell(9, 0, 8, 3);
+	// random cells scattered throughout 
+	cells2[13] = Cell(6, 1, 4, 2);
+	cells2[18] = Cell(6, 2, 0, 1);
+	cells2[57] = Cell(4, 6, 3, 8);
+
+	SudokuBoard baseBoard = SudokuBoard(cells2);
+
+	SudokuBoard testBoard = SudokuBoard(baseBoard);
+	for (size_t i = 0; i < 9; ++i)
+	{
+		affirm(testBoard.rows_[i] == baseBoard.rows_[i]);
+		affirm(testBoard.columns_[i] == baseBoard.columns_[i]);
+		affirm(testBoard.squares_[i] == baseBoard.squares_[i]);
+	}
+
+	affirm(testBoard == baseBoard);
+
+	return log.summarize();
 }
 
 bool boardGetRowTest()
 {
-	throw new exception();
+	TestingLogger log("Board Get Row Test");
+	SudokuBoard board1 = SudokuBoard();
+	affirm(board1.getRow(0) == Row());
+	affirm(board1.getRow(1) == Row());
+	affirm(board1.getRow(2) == Row());
+	affirm(board1.getRow(3) == Row());
+	affirm(board1.getRow(4) == Row());
+	affirm(board1.getRow(5) == Row());
+	affirm(board1.getRow(6) == Row());
+	affirm(board1.getRow(7) == Row());
+	affirm(board1.getRow(8) == Row());
+
+	Cell cells2[81];
+	for (size_t i = 0; i < 81; ++i)
+	{
+		cells2[i] = Cell();
+	}
+	//firt row
+	cells2[0] = Cell(1, 0, 0, 1);
+	cells2[1] = Cell(2, 0, 1, 1);
+	cells2[2] = Cell(3, 0, 2, 1);
+	cells2[3] = Cell(4, 0, 3, 2);
+	cells2[4] = Cell(5, 0, 4, 2);
+	cells2[5] = Cell(6, 0, 5, 2);
+	cells2[6] = Cell(7, 0, 6, 3);
+	cells2[7] = Cell(8, 0, 7, 3);
+	cells2[8] = Cell(9, 0, 8, 3);
+	// random cells scattered throughout 
+	cells2[13] = Cell(6, 1, 4, 2);
+	cells2[18] = Cell(6, 2, 0, 1);
+	cells2[57] = Cell(4, 6, 3, 8);
+
+	list<Cell> cells = list<Cell>();
+	for (size_t i = 0; i < 9; ++i)
+	{
+		cells.push_back(cells2[i]);
+	}
+	SudokuBoard testBoard = SudokuBoard(cells2);
+	affirm(testBoard.getRow(0) == Row(cells, false));
+
+	list<Cell> cells3 = list<Cell>();
+	cells3.push_back(cells2[18]);
+	for (size_t i = 0; i < 8; ++i)
+	{
+		cells3.push_back(Cell());
+	}
+	Row row3 = Row(cells3, false);
+	affirm(testBoard.getRow(2) == row3);
+
+	return log.summarize();
+	
 }
 
 bool boardGetColumnTest()
 {
-	throw new exception();
+	TestingLogger log("Board getColumn Test");
+
+	SudokuBoard board = SudokuBoard();
+	for (size_t i = 0; i < 9; ++i)
+	{
+		affirm(board.getCol(i) == Row());
+	}
+
+
+	Cell cells2[81];
+	for (size_t i = 0; i < 81; ++i)
+	{
+		cells2[i] = Cell();
+	}
+	cells2[0] = Cell(1, 0, 0, 1);
+	cells2[1] = Cell(2, 1, 0, 1);
+	cells2[2] = Cell(3, 2, 0, 1);
+	cells2[3] = Cell(4, 3, 0, 4);
+	cells2[4] = Cell(5, 4, 0, 4);
+	cells2[5] = Cell(6, 5, 0, 4);
+	cells2[6] = Cell(7, 6, 0, 7);
+	cells2[7] = Cell(8, 7, 0, 7);
+	cells2[8] = Cell(9, 8, 0, 7);
+	// random cells scattered throughout 
+	cells2[13] = Cell(6, 1, 4, 2);
+	cells2[18] = Cell(6, 2, 0, 1);
+	cells2[57] = Cell(4, 6, 3, 8);
+
+	list<Cell> cells = list<Cell>();
+	for (size_t i = 0; i < 9; ++i)
+	{
+		cells.push_back(cells2[i]);
+	}
+	SudokuBoard testBoard = SudokuBoard(cells2);
+	affirm(testBoard.getCol(0) == Row(cells, true));
+
+
+
+	return log.summarize();
 }
 
 bool boardGetSquareTest()
 {
-	throw new exception();
+	TestingLogger log("Board getSquare Test");
+
+	SudokuBoard board = SudokuBoard();
+	for (size_t i = 0; i < 9; ++i)
+	{
+		affirm(board.getSquare(i) == Square());
+	}
+
+	Cell cells[81];
+	for (size_t i = 0; i < 81; ++i)
+	{
+		cells[i] = Cell();
+	}
+	//make the first square
+	list<Cell> cellList = list<Cell>();
+	cells[0] = (Cell(1, 0, 0, 1));
+	cells[1] = (Cell(2, 0, 1, 1));
+	cells[2] = (Cell(3, 0, 2, 1));
+	cells[3] = (Cell(4, 1, 0, 1));
+	cells[4] = (Cell(5, 1, 1, 1));
+	cells[5] = (Cell(6, 1, 2, 1));
+	cells[6] = (Cell(7, 2, 0, 1));
+	cells[7] = (Cell(8, 2, 1, 1));
+	cells[8] = (Cell(9, 2, 2, 1));
+	for (size_t i = 0; i < 9; ++i)
+	{
+		cellList.push_back(cells[i]);
+	}
+
+	Square testSquare = Square(cellList);
+	SudokuBoard board2 = SudokuBoard(cells);
+	affirm(board2.getSquare(0) == testSquare);
+	affirm(board2.getSquare(1) == Square());
+	affirm(board2.getSquare(2) == Square());
+	affirm(board2.getSquare(3) == Square());
+	affirm(board2.getSquare(4) == Square());
+	affirm(board2.getSquare(5) == Square());
+	affirm(board2.getSquare(6) == Square());
+	affirm(board2.getSquare(7) == Square());
+	affirm(board2.getSquare(8) == Square());
+
+	return log.summarize();
 }
 
 bool boardMakeRowTest()
@@ -904,6 +1110,13 @@ bool boardMakeRowTest()
 bool boardMakeSquareTest()
 {
 	throw new exception();
+}
+
+bool boardEqualsTest()
+{
+	TestingLogger log("Board Comparison Operator Test");
+
+	return log.summarize();
 }
 
 bool boardIsCompleteTest()
@@ -921,6 +1134,12 @@ bool boardUpdatePossibilitiesTest()
 	throw new exception();
 }
 
+bool bigBoardTest()
+{
+	TestingLogger log("Extensive Board Test");
+
+	return log.summarize();
+}
 
 
 // --------------------------
@@ -946,6 +1165,7 @@ int main()
 	affirm(cellIsEmptyTest());
 	affirm(cellGetValueTest());
 	affirm(cellNumPossibilitiesTest());
+	affirm(cellAssignmentTest());
 	affirm(rowDefaulConstructorTest());
 	affirm(rowListConstructorTest());
 	affirm(rowCopyConstructorTest());
@@ -953,25 +1173,28 @@ int main()
 	affirm(rowIsCompleteTest());
 	affirm(rowSetValueTest());
 	affirm(rowGetPossibilitiesTest());
+	affirm(rowMinPossibilitiesTest());
 	affirm(squareDefaultConstructorTest());
 	affirm(squareListConstructorTest());
 	affirm(squareCopyConstructorTest());
-//	affirm(squareEqualsTest());
-//	affirm(squareAssignmentTest());
+	affirm(squareEqualsTest());
+	affirm(squareAssignmentTest());
 	affirm(squareIsCompleteTest());
 	affirm(squareSetValueTest());
 	affirm(squareGetPossibilitiesTest());
 	affirm(boardDefaultConstructorTest());
-//	affirm(boardCellConstructorTest());
-//	affirm(boardCopyConstructorTest());
-//	affirm(boardGetRowTest());
-//	affirm(boardGetColumnTest());
-//	affirm(boardGetSquareTest());
+	affirm(boardCellConstructorTest());
+	affirm(boardCopyConstructorTest());
+	affirm(boardGetRowTest());
+	affirm(boardGetColumnTest());
+	affirm(boardGetSquareTest());
 //	affirm(boardMakeRowTest());
 //	affirm(boardMakeSquareTest());
+//	affirm(boardEqualsTest());
 //	affirm(boardIsCompleteTest());
 //	affirm(boardInValidSolutionTest());
 //	affirm(boardUpdatePossibilitiesTest());
+//	affirm(bigBoardTest());
 
 	if (alltests.summarize(true))
 	{
