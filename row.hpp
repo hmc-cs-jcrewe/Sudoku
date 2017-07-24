@@ -39,6 +39,10 @@ public:
     //destructor 
     ~Row() = default;
 
+    //operators 
+    bool operator==(const Row& rhs);
+    bool operator!=(const Row& rhs);
+
     //member functions 
     bool isCompleteRow();
     void getPossibilities();

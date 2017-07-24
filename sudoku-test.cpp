@@ -318,6 +318,34 @@ bool rowCopyConstructorTest()
 	return log.summarize();
 }
 
+bool rowEqualsTest()
+{
+	TestingLogger log ("Row Operator Equals Test");
+
+	Row row1 = Row();
+	Row row2 = Row();
+	affirm(row1 == row2);
+	affirm(row1.rowSize_ == row2.rowSize_);
+	affirm(row1.cells_ == row2.cells_);
+	for (size_t i = 0; i < 9; ++i)
+	{
+		affirm(row1.cells_[i] == row2.cells_[i]);
+	}
+
+	Cell cell1 = Cell(4, 1 , 3, 5);
+	row1.setValue(cell1);
+	row2.setValue(cell1);
+
+	affirm(row1 == row2);
+	affirm(row1.rowSize_ == row2.rowSize_);
+	affirm(row1.cells_ == row2.cells_);
+	for (size_t i = 0; i < 9; ++i)
+	{
+		affirm(row1.cells_[i] == row2.cells_[i]);
+	}
+
+	return log.summarize();
+}
 bool rowIsCompleteTest()
 {
 	TestingLogger log("Row is complete Test");
@@ -532,6 +560,34 @@ bool squareCopyConstructorTest()
 
 }
 
+bool squareEqualsTest()
+{
+	TestingLogger log("Square Operator Equals Test");
+	Square square1 = Square();
+	Square square2 = Square();
+	affirm(square1 == square2);
+
+	Cell cell1 = Cell(1 , 0 , 0, 1);
+	square1.setValue(cell1);
+	square2.setValue(cell1);
+
+	affirm(square1 == square2);
+	return log.summarize();
+}
+
+bool squareAssignmentTest()
+{
+	TestingLogger log("Square Assignment Operator");
+	Square square1 = Square();
+	Square square2 = square1;
+	affirm(square1 == square2);
+	Cell cell1 = Cell(1 , 1 , 0 , 1);
+	square1.setValue(cell1);
+	Square square3 = square1;
+	affirm(square1 == square3);
+	return log.summarize();
+}
+
 bool squareIsCompleteTest()
 {
 	TestingLogger log("Square isComplete Test");
@@ -688,23 +744,83 @@ bool boardDefaultConstructorTest()
 		{
 			affirm(testCell == Cell());
 		}
-	}
-	for (size_t j = 0 ; j < 3 ; ++j)
-	{
-		for (size_t k = 0; k < 3; ++k)
+		for (Cell testCell : testBoard.getSquare(i).cells_)
 		{
-			for (Cell testCell : testBoard.getSquare(j,k).cells_)
-			{
-				affirm (testCell == Cell());
-			}
+			affirm(testCell == Cell());
 		}
 	}
+	
 	return log.summarize();
 }
 
 bool boardCellConstructorTest()
 {
-	throw new exception();
+	TestingLogger log ("Board Cell Constructor Test");
+	//Create all 81 cells -- first test of empty board
+	Cell cells[81];
+	for(size_t i = 0; i < 81; ++i)
+	{
+		cells[i] = Cell();
+	}
+
+
+	SudokuBoard testBoard1 = SudokuBoard(cells);
+	affirm(testBoard1.rows_[0] == Row());
+	affirm(testBoard1.rows_[1] == Row());
+	affirm(testBoard1.rows_[2] == Row());
+	affirm(testBoard1.rows_[3] == Row());
+	affirm(testBoard1.rows_[4] == Row());
+	affirm(testBoard1.rows_[5] == Row());
+	affirm(testBoard1.rows_[6] == Row());
+	affirm(testBoard1.rows_[7] == Row());
+	affirm(testBoard1.rows_[8] == Row());
+
+	affirm(testBoard1.columns_[0] == Row());
+	affirm(testBoard1.columns_[1] == Row());
+	affirm(testBoard1.columns_[2] == Row());
+	affirm(testBoard1.columns_[3] == Row());
+	affirm(testBoard1.columns_[4] == Row());
+	affirm(testBoard1.columns_[5] == Row());
+	affirm(testBoard1.columns_[6] == Row());
+	affirm(testBoard1.columns_[7] == Row());
+	affirm(testBoard1.columns_[8] == Row());
+	
+//	affirm(testBoard1.squares_[0] == Square());
+//	affirm(testBoard1.squares_[1] == Square());
+//	affirm(testBoard1.squares_[2] == Square());
+//	affirm(testBoard1.squares_[3] == Square());
+//	affirm(testBoard1.squares_[4] == Square());
+//	affirm(testBoard1.squares_[5] == Square());
+//	affirm(testBoard1.squares_[6] == Square());
+//	affirm(testBoard1.squares_[7] == Square());
+//	affirm(testBoard1.squares_[8] == Square());
+	
+
+
+	
+	Cell cells2[81];
+	for ( size_t i  = 0; i < 81; ++i )
+	{
+		cells2[i] = Cell();
+	}
+	//firt row
+	cells2[0] = Cell (1 , 0 , 0 , 1);
+	cells2[1] = Cell (2 , 0 , 1 , 1);
+	cells2[2] = Cell (3 , 0 , 2 , 1);
+	cells2[3] = Cell (4 , 0 , 3 , 2);
+	cells2[4] = Cell (5 , 0 , 4 , 2);
+	cells2[5] = Cell (6 , 0 , 5 , 2);
+	cells2[6] = Cell (7 , 0 , 6 , 3);
+	cells2[7] = Cell (8 , 0 , 7 , 3);
+	cells2[8] = Cell (9 , 0 , 8 , 3);
+ 	// random cells scattered throughout 
+	cells2[13] = Cell (6 , 1 , 4 , 2);
+
+
+
+	cells2[18] = Cell (6 , 1 , 4 , 2);
+
+	return log.summarize();
 }
 
 bool boardCopyConstructorTest()
@@ -780,12 +896,15 @@ int main()
 	affirm(rowDefaulConstructorTest());
 	affirm(rowListConstructorTest());
 	affirm(rowCopyConstructorTest());
+	affirm(rowEqualsTest());
 	affirm(rowIsCompleteTest());
 	affirm(rowSetValueTest());
 	affirm(rowGetPossibilitiesTest());
 	affirm(squareDefaultConstructorTest());
 	affirm(squareListConstructorTest());
 	affirm(squareCopyConstructorTest());
+//	affirm(squareEqualsTest());
+//	affirm(squareAssignmentTest());
 	affirm(squareIsCompleteTest());
 	affirm(squareSetValueTest());
 	affirm(squareGetPossibilitiesTest());

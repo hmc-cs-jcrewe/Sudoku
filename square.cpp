@@ -39,6 +39,31 @@ Square::Square(const Square & square)
 	}
 }
 
+bool Square::operator==(const Square& rhs)
+{
+	if (squareSize_ == rhs.squareSize_ && cells_ == rhs.cells_)
+	{
+		return true;
+	}
+	return false;
+}
+
+bool Square::operator!=(const Square& rhs)
+{
+	return !(*this == rhs);
+}
+
+Square& Square::operator=(const Square& rhs)
+{
+	squareSize_ = rhs.squareSize_;
+	for (size_t i = 0; i < 9; ++i)
+	{
+		cells_[i] = rhs.cells_[i];
+	}
+
+	return *this;
+}
+
 bool Square::isCompleteSquare()
 {
    for (size_t i = 0; i < 9; ++i)

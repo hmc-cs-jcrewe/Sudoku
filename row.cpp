@@ -42,6 +42,26 @@ Row::Row(const Row& row)
 	}
 }
 
+bool Row::operator==(const Row& rhs)
+{
+	if (rhs.rowSize_ == rowSize_ && isCol_ == rhs.isCol_)
+	{
+		for (size_t i = 0; i < 9; ++i)
+		{
+			if (!(rhs.cells_[i] == cells_[i]))
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+	return false;
+}
+
+bool Row::operator!=(const Row& rhs)
+{
+	return !(*this == rhs);
+}
 bool Row::isCompleteRow()
 {
 	for (size_t i = 0; i < 9; ++i)

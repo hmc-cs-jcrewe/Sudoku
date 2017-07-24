@@ -102,6 +102,18 @@ bool Cell::operator==(const Cell& rhs)
  {
     return !(*this == rhs);
  }
+
+ Cell& Cell::operator=(const Cell& rhs)
+ {
+     value_ = rhs.value_;
+     empty_ = rhs.empty_;
+     possibilities_ = rhs.possibilities_;
+     for (size_t i = 0; i < 3; ++i)
+     {
+         location_[i] = rhs.location_[i];
+     }
+     return *this;
+ }
 bool Cell::isEmpty()
 {
     if (value_ == 0)

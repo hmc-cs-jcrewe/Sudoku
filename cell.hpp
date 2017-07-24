@@ -45,6 +45,8 @@ public:
     //operators
     bool operator==(const Cell& rhs);
     bool operator!=(const Cell& rhs);
+
+    Cell& operator=(const Cell& rhs);
     
 
     //member functions

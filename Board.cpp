@@ -19,114 +19,131 @@
 SudokuBoard::SudokuBoard(Cell cells[81])
 {
     //construct the rows_ array
-    for (size_t i = 0; i < 9; ++i)
+    for (size_t i = 0; i < 81; ++i)
     {
-        Row row = Row();
-        row.rowSize_ = 0;
-
-        for ( size_t j = 0; j < 9; ++j)
-        {
-            row.cells_[j] = cells[i + j];
-            if (!(cells[i + j].isEmpty()))
-            {
-                ++row.rowSize_;
-            }
-        }
-        rows_[i] = row;
+        rows_[cells[i].location_[0]].cells_[cells[i].location_[1]] = cells[i];
     }
 
-    //construct the columns_ array
-    for(size_t i = 0; i < 81; ++i)
+   // for (size_t i = 0; i < 9; ++i)
+   // {
+   //     Row row = Row();
+   //     row.rowSize_ = 0;
+//
+   //     for ( size_t j = 0; j < 9; ++j)
+   //     {
+   //         row.cells_[j] = cells[i + j];
+   //         if (!(cells[i + j].isEmpty()))
+   //         {
+   //             ++row.rowSize_;
+   //         }
+   //     }
+   //     rows_[i] = row;
+   // }
+//
+   // //construct the columns_ array
+   // for(size_t i = 0; i < 81; ++i)
+   //// {
+   //     if (i < 9)
+   //     {
+   //         columns_[i % 9].cells_[0] = cells[i];
+   //         if (!(cells[i].isEmpty()))
+   //         {
+   //             ++columns_[i % 9].rowSize_;
+   //         }
+//
+   //         break;
+   //     }
+   //     if (i < 18 && i >= 9)
+   //     {
+   //         columns_[i % 9].cells_[1] = cells[i];
+   //         if (!(cells[i].isEmpty()))
+   //         {
+   //             ++columns_[i % 9].rowSize_;
+   //         }
+//
+   //         break;
+   //     }
+   //     if ( i < 27 && i >= 18)
+   //     {
+   //         columns_[i % 9].cells_[2] = cells[i];
+   //         if (!(cells[i].isEmpty()))
+   //         {
+   //             ++columns_[i % 9].rowSize_;
+   //         }
+   //         break;
+   //     }
+   //     if ( i < 36 && i >= 27)
+   //     {
+   //         columns_[i % 9].cells_[3] = cells[i];
+   //         if (!(cells[i].isEmpty()))
+   //         {
+   //             ++columns_[i % 9].rowSize_;
+   //         }
+//
+   //         break;
+   //     }
+   //     if ( i < 45 && i >=36)
+   //     {
+   //         columns_[i % 9].cells_[4] = cells[i];
+   //         if (!(cells[i].isEmpty()))
+   //         {
+   //             ++columns_[i % 9].rowSize_;
+   //         }
+//
+   //         break;
+   //     }
+   //     if ( i < 54 && i >= 45)
+   //     {
+   //         columns_[i % 9].cells_[5] = cells[i];
+   //         if (!(cells[i].isEmpty()))
+   //         {
+   //             ++columns_[i % 9].rowSize_;
+   //         }
+//
+   //         break;
+   //     }
+   //     if ( i < 63 && i >= 54)
+   //     {
+   //         columns_[i % 9].cells_[6] = cells[i];
+   //         if (!(cells[i].isEmpty()))
+   //         {
+   //             ++columns_[i % 9].rowSize_;
+   //         }
+//
+   //         break;
+   //     }
+   //     if ( i < 72 && i >= 63)
+   //     {
+   //         columns_[i % 9].cells_[7] = cells[i];
+   //         if (!(cells[i].isEmpty()))
+   //         {
+   //             ++columns_[i % 9].rowSize_;
+   //         }
+//
+   //         break;
+   //     }
+   //     if ( i < 81 && i >= 72)
+   //     {
+   //         columns_[i % 9].cells_[8] = cells[i];
+   //         if (!(cells[i].isEmpty()))
+   //         {
+   //             ++columns_[i % 9].rowSize_;
+   //         }
+//
+   //         break;
+   //     }
+   //// }
+//
+   //construct the columns arrary
+
+   for (size_t i = 0; i < 81; ++i)
+   {
+        columns_[cells[i].location_[1]].cells_[cells[i].location_[0]] = cells[i];
+   }
+    //construct the squares array
+    for (size_t i = 0; i < 81; ++i)
     {
-        if (i < 9)
-        {
-            columns_[i % 9].cells_[0] = cells[i];
-            if (!(cells[i].isEmpty()))
-            {
-                ++columns_[i % 9].rowSize_;
-            }
-
-            break;
-        }
-        if (i < 18 && i >= 9)
-        {
-            columns_[i % 9].cells_[1] = cells[i];
-            if (!(cells[i].isEmpty()))
-            {
-                ++columns_[i % 9].rowSize_;
-            }
-
-            break;
-        }
-        if ( i < 27 && i >= 18)
-        {
-            columns_[i % 9].cells_[2] = cells[i];
-            if (!(cells[i].isEmpty()))
-            {
-                ++columns_[i % 9].rowSize_;
-            }
-            break;
-        }
-        if ( i < 36 && i >= 27)
-        {
-            columns_[i % 9].cells_[3] = cells[i];
-            if (!(cells[i].isEmpty()))
-            {
-                ++columns_[i % 9].rowSize_;
-            }
-
-            break;
-        }
-        if ( i < 45 && i >=36)
-        {
-            columns_[i % 9].cells_[4] = cells[i];
-            if (!(cells[i].isEmpty()))
-            {
-                ++columns_[i % 9].rowSize_;
-            }
-
-            break;
-        }
-        if ( i < 54 && i >= 45)
-        {
-            columns_[i % 9].cells_[5] = cells[i];
-            if (!(cells[i].isEmpty()))
-            {
-                ++columns_[i % 9].rowSize_;
-            }
-
-            break;
-        }
-        if ( i < 63 && i >= 54)
-        {
-            columns_[i % 9].cells_[6] = cells[i];
-            if (!(cells[i].isEmpty()))
-            {
-                ++columns_[i % 9].rowSize_;
-            }
-
-            break;
-        }
-        if ( i < 72 && i >= 63)
-        {
-            columns_[i % 9].cells_[7] = cells[i];
-            if (!(cells[i].isEmpty()))
-            {
-                ++columns_[i % 9].rowSize_;
-            }
-
-            break;
-        }
-        if ( i < 81 && i >= 72)
-        {
-            columns_[i % 9].cells_[8] = cells[i];
-            if (!(cells[i].isEmpty()))
-            {
-                ++columns_[i % 9].rowSize_;
-            }
-
-            break;
-        }
+        squares_[(cells[i].location_[2]) - 1].setValue(cells[i]);
     }
 }
 
@@ -136,14 +153,7 @@ SudokuBoard::SudokuBoard(const SudokuBoard& other)
 	{
 		columns_[i] = other.columns_[i];
 		rows_[i] = other.rows_[i];
-	}
-	
-	for (size_t i = 0; i < 3; ++i)
-	{
-		for (size_t j = 0; j < 3; ++j)
-		{
-			squares_[i][j] = other.squares_[i][j];
-		}
+        squares_[i] = other.squares_[i];
 	}
 }
 
@@ -157,9 +167,9 @@ Row SudokuBoard::getCol(size_t c)
     return columns_[c];
 }
 
-Square SudokuBoard::getSquare(size_t r, size_t c)
+Square SudokuBoard::getSquare(size_t s)
 {
-	return squares_[r][c];
+	return squares_[s];
 }
 Row SudokuBoard::makeRow(int values[9])
 {
@@ -237,14 +247,11 @@ bool SudokuBoard::isComplete()
 			return false;
 		}
     }
-    for (int j = 0; j < 3; ++j)
+    for(Square square: squares_)
     {
-        for (int i = 0; i < 3; ++i)
+        if (!square.isCompleteSquare())
         {
-			if (!squares_[j][i].isCompleteSquare())
-			{
-				return false;
-			}
+            return false;
         }
     }
     return true;
@@ -264,17 +271,15 @@ bool SudokuBoard::inValidSolution()
 			{ return false; }
 		}
 	}
-	for (int j = 0; j < 3; ++j)
-	{
-		for (int i = 0; i < 3; ++i)
-		{
-			for (int k = 0; k <9; ++k)
-			{
-				if (!(squares_[j][i].cells_[k].possibilities_.empty()))
-				{ return false; }
-			}
-		}
-	}
+
+    for (int i = 0; i < 3; ++i)
+    {
+        for (int k = 0; k <9; ++k)
+        {
+            if (!(squares_[i].cells_[k].possibilities_.empty()))
+            { return false; }
+        }
+    }
 	return true;
 }
 
@@ -286,12 +291,9 @@ void SudokuBoard::updatePossibilities()
 		columns_[i].getPossibilities();
     }
 
-	for (size_t i = 0; i < 3; ++i)
+	for (size_t i = 0; i < 9; ++i)
 	{
-		for (size_t j = 0; j < 3; ++j)
-		{
-			squares_[i][j].getPossibilities();
-		}
+        squares_[i].getPossibilities();	
 	}
 }
 

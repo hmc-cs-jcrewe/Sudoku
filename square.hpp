@@ -33,6 +33,13 @@ public:
 	//copy constructor 
 	Square(const Square& square);
 
+    //operators
+
+    bool operator==(const Square& rhs);
+
+    bool operator!=(const Square& rhs);
+
+    Square& operator=(const Square& rhs);
     //member functions
     bool isCompleteSquare();
 

@@ -51,7 +51,7 @@ public:
     //getters
     Row getRow(size_t r);
     Row getCol(size_t c);
-	Square getSquare(size_t r, size_t c);
+	Square getSquare(size_t s);
  
     //setters
     Row makeRow(int values [9]);
@@ -63,11 +63,11 @@ public:
     bool inValidSolution();
     void updatePossibilities();
 
-private:
+    //data members
     Row rows_[9];
     Row columns_[9];
 	//index reads row then column
-    Square squares_[3][3];
+    Square squares_[9];
 
 };
 #endif
