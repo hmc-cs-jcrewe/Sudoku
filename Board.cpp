@@ -230,6 +230,31 @@ Square SudokuBoard::makeSquare(int values[9])
 	return newSquare;
 }
 
+bool SudokuBoard::operator==(const SudokuBoard& other)
+{
+	for (size_t i = 0; i < 9; ++i)
+	{
+		if (!(rows_[i] == other.rows_[i]))
+		{
+			return false;
+		}
+		if (!(columns_[i] == other.columns_[i]))
+		{
+			return false;
+		}
+		if (!(squares_[i] == other.squares_[i]))
+		{
+			return false;
+		}
+	}
+	return true;
+}
+
+bool SudokuBoard::operator!=(const SudokuBoard& other)
+{
+	return !(*this == other);
+}
+
 bool SudokuBoard::isComplete()
 {
     for (Row row : rows_)

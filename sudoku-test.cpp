@@ -326,7 +326,6 @@ bool rowEqualsTest()
 	Row row2 = Row();
 	affirm(row1 == row2);
 	affirm(row1.rowSize_ == row2.rowSize_);
-	affirm(row1.cells_ == row2.cells_);
 	for (size_t i = 0; i < 9; ++i)
 	{
 		affirm(row1.cells_[i] == row2.cells_[i]);
@@ -338,7 +337,6 @@ bool rowEqualsTest()
 
 	affirm(row1 == row2);
 	affirm(row1.rowSize_ == row2.rowSize_);
-	affirm(row1.cells_ == row2.cells_);
 	for (size_t i = 0; i < 9; ++i)
 	{
 		affirm(row1.cells_[i] == row2.cells_[i]);
@@ -785,16 +783,16 @@ bool boardCellConstructorTest()
 	affirm(testBoard1.columns_[7] == Row());
 	affirm(testBoard1.columns_[8] == Row());
 	
-//	affirm(testBoard1.squares_[0] == Square());
-//	affirm(testBoard1.squares_[1] == Square());
-//	affirm(testBoard1.squares_[2] == Square());
-//	affirm(testBoard1.squares_[3] == Square());
-//	affirm(testBoard1.squares_[4] == Square());
-//	affirm(testBoard1.squares_[5] == Square());
-//	affirm(testBoard1.squares_[6] == Square());
-//	affirm(testBoard1.squares_[7] == Square());
-//	affirm(testBoard1.squares_[8] == Square());
-	
+	affirm(testBoard1.squares_[0] == Square());
+	affirm(testBoard1.squares_[1] == Square());
+	affirm(testBoard1.squares_[2] == Square());
+	affirm(testBoard1.squares_[3] == Square());
+	affirm(testBoard1.squares_[4] == Square());
+	affirm(testBoard1.squares_[5] == Square());
+	affirm(testBoard1.squares_[6] == Square());
+	affirm(testBoard1.squares_[7] == Square());
+	affirm(testBoard1.squares_[8] == Square());
+
 
 
 	
@@ -815,10 +813,65 @@ bool boardCellConstructorTest()
 	cells2[8] = Cell (9 , 0 , 8 , 3);
  	// random cells scattered throughout 
 	cells2[13] = Cell (6 , 1 , 4 , 2);
+	cells2[18] = Cell (6 , 2 , 0 , 1);
+	cells2[57] = Cell (4 , 6 , 3 , 8);
+	
+	
+	affirm(testBoard1.rows_[3] == Row());
+	affirm(testBoard1.rows_[4] == Row());
+	affirm(testBoard1.rows_[5] == Row());
+	affirm(testBoard1.rows_[7] == Row());
+	affirm(testBoard1.rows_[8] == Row());
 
+	
+	affirm(testBoard1.squares_[3] == Square());
+	affirm(testBoard1.squares_[4] == Square());
+	affirm(testBoard1.squares_[5] == Square());
+	affirm(testBoard1.squares_[6] == Square());
+	affirm(testBoard1.squares_[8] == Square());
 
+	affirm(testBoard1.rows_[0].cells_[0] == Cell (1, 0, 0, 1));
+	affirm(testBoard1.rows_[0].cells_[1] == Cell (2, 0, 1, 1));
+	affirm(testBoard1.rows_[0].cells_[2] == Cell (3, 0, 2, 1));
+	affirm(testBoard1.rows_[0].cells_[3] == Cell (4, 0, 3, 2));
+	affirm(testBoard1.rows_[0].cells_[4] == Cell (5, 0, 4, 2));
+	affirm(testBoard1.rows_[0].cells_[5] == Cell (6, 0, 5, 2));
+	affirm(testBoard1.rows_[0].cells_[6] == Cell (7, 0, 6, 3));
+	affirm(testBoard1.rows_[0].cells_[7] == Cell (8, 0, 7, 3));
+	affirm(testBoard1.rows_[0].cells_[8] == Cell (9, 0, 8, 3));
 
-	cells2[18] = Cell (6 , 1 , 4 , 2);
+	affirm(testBoard1.rows_[1].cells_[4] == Cell (6 , 1 , 4 , 2));
+	affirm(testBoard1.rows_[2].cells_[0] == Cell (6 , 2 , 0 , 1));
+	affirm(testBoard1.rows_[6].cells_[3] == Cell (4 , 6 , 3 , 8));
+
+	affirm(testBoard1.columns_[0].cells_[0] == Cell(1, 0, 0, 1));
+	affirm(testBoard1.columns_[1].cells_[0] == Cell(2, 0, 1, 1));
+	affirm(testBoard1.columns_[2].cells_[0] == Cell(3, 0, 2, 1));
+	affirm(testBoard1.columns_[3].cells_[0] == Cell(4, 0, 3, 2));
+	affirm(testBoard1.columns_[4].cells_[0] == Cell(5, 0, 4, 2));
+	affirm(testBoard1.columns_[5].cells_[0] == Cell(6, 0, 5, 2));
+	affirm(testBoard1.columns_[6].cells_[0] == Cell(7, 0, 6, 3));
+	affirm(testBoard1.columns_[7].cells_[0] == Cell(8, 0, 7, 3));
+	affirm(testBoard1.columns_[8].cells_[0] == Cell(9, 0, 8, 3));
+
+	affirm(testBoard1.columns_[4].cells_[1] == Cell(6, 1, 4, 2));
+	affirm(testBoard1.columns_[0].cells_[2] == Cell(6, 2, 0, 1));
+	affirm(testBoard1.columns_[3].cells_[6] == Cell(4, 6, 3, 8));
+
+	affirm(testBoard1.squares_[0].cells_[0] == Cell(1, 0, 0, 1));
+	affirm(testBoard1.squares_[0].cells_[1] == Cell(2, 0, 1, 1));
+	affirm(testBoard1.squares_[0].cells_[2] == Cell(3, 0, 2, 1));
+	affirm(testBoard1.squares_[1].cells_[0] == Cell(4, 0, 3, 2));
+	affirm(testBoard1.squares_[1].cells_[1] == Cell(5, 0, 4, 2));
+	affirm(testBoard1.squares_[1].cells_[2] == Cell(6, 0, 5, 2));
+	affirm(testBoard1.squares_[2].cells_[0] == Cell(7, 0, 6, 3));
+	affirm(testBoard1.squares_[2].cells_[1] == Cell(8, 0, 7, 3));
+	affirm(testBoard1.squares_[2].cells_[2] == Cell(9, 0, 8, 3));
+
+	affirm(testBoard1.squares_[1].cells_[4] == Cell(6, 1, 4, 2));
+	affirm(testBoard1.squares_[0].cells_[6] == Cell(6, 2, 0, 1));
+	affirm(testBoard1.squares_[7].cells_[0] == Cell(4, 6, 3, 8));
+
 
 	return log.summarize();
 }

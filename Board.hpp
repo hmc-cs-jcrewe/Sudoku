@@ -42,8 +42,7 @@ public:
     //copy constructor
     SudokuBoard(const SudokuBoard& other);
 
-	//TODO -- add assignment operator?
-	 //operator=(const Board& rhs);
+
 
     //destructor
     ~SudokuBoard() = default;
@@ -57,6 +56,11 @@ public:
     Row makeRow(int values [9]);
 	Row makeCol(int values[9]);
     Square makeSquare(int values [9]);
+
+	//operators
+	bool operator==(const SudokuBoard& other);
+	bool operator!=(const SudokuBoard& other);
+
  
     //member functions 
     bool isComplete();

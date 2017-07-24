@@ -41,11 +41,18 @@ Square::Square(const Square & square)
 
 bool Square::operator==(const Square& rhs)
 {
-	if (squareSize_ == rhs.squareSize_ && cells_ == rhs.cells_)
+	if (!(squareSize_ == rhs.squareSize_))
 	{
-		return true;
+		return false;
 	}
-	return false;
+	for (size_t i = 0; i < 9; ++i)
+	{
+		if (!(cells_[i] == rhs.cells_[i]))
+		{
+			return false;
+		}
+	}
+	return true;
 }
 
 bool Square::operator!=(const Square& rhs)
