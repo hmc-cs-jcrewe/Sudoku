@@ -158,7 +158,7 @@ bool cellAssignmentTest()
 	affirm(testCell == baseCell);
 
 	Cell baseCell2 = Cell(3, 1, 1, 1);
-	Cell testCell2 = baseCell;
+	Cell testCell2 = baseCell2;
 	affirm(testCell2 == baseCell2);
 	affirm(!(testCell2 == baseCell));
 
@@ -804,7 +804,7 @@ bool boardCellConstructorTest()
 	}
 
 
-	SudokuBoard testBoard1 = SudokuBoard(cells);
+	SudokuBoard testBoard1 = SudokuBoard(cells);	//segmentation fault occurs here in the cell constructor
 	affirm(testBoard1.rows_[0] == Row());
 	affirm(testBoard1.rows_[1] == Row());
 	affirm(testBoard1.rows_[2] == Row());
@@ -837,7 +837,6 @@ bool boardCellConstructorTest()
 
 
 
-	
 	Cell cells2[81];
 	for ( size_t i  = 0; i < 81; ++i )
 	{
@@ -858,7 +857,7 @@ bool boardCellConstructorTest()
 	cells2[18] = Cell (6 , 2 , 0 , 1);
 	cells2[57] = Cell (4 , 6 , 3 , 8);
 	
-	SudokuBoard testBoard2 = SudokuBoard(cells2);
+	SudokuBoard testBoard2 = SudokuBoard(cells2);	//segmentation fault occurs here in the cell array parameterized constructor
 	
 	affirm(testBoard2.rows_[3] == Row());
 	affirm(testBoard2.rows_[4] == Row());
@@ -915,11 +914,10 @@ bool boardCellConstructorTest()
 	affirm(testBoard2.squares_[0].cells_[6] == Cell(6, 2, 0, 1));
 	affirm(testBoard2.squares_[7].cells_[0] == Cell(4, 6, 3, 8));
 
-
 	return log.summarize();
 }
 
-bool boardCopyConstructorTest()
+bool boardCopyConstructorTest()	
 {
 	TestingLogger log("Board Copy Constructor Test");
 

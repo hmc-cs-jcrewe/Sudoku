@@ -140,10 +140,14 @@ SudokuBoard::SudokuBoard(Cell cells[81])
    {
         columns_[cells[i].location_[1]].cells_[cells[i].location_[0]] = cells[i];
    }
-    //construct the squares array
+ //   //construct the squares array -- segmentation fault occurs here
+    //when using a default cell, its location_[2] = 0, so 0 - 1 is -1, so it is trying to index -1
     for (size_t i = 0; i < 81; ++i)
     {
-        squares_[(cells[i].location_[2]) - 1].setValue(cells[i]);
+        if ( cells[i].location_[2] != 0)
+        {
+            squares_[(cells[i].location_[2]) - 1].setValue(cells[i]);
+        }
     }
 }
 

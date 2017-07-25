@@ -106,7 +106,7 @@ Cell Row::minPossibilities()
 	Cell minCell = Cell();
 	for (Cell cell : cells_)
 	{
-		if (cell.numPossibilities() < minVal && cell.numPossibilities != 1)
+		if (cell.numPossibilities() < minVal && cell.numPossibilities() != 1)
 		{
 			minVal = cell.numPossibilities();
 			minCell = cell;
