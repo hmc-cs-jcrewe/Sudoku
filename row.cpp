@@ -22,7 +22,7 @@ Row::Row()
 
 Row::Row(list<Cell> cells, bool isCol)
 {
-	rowSize_ = cells.size();
+	rowSize_ = 0;
 	isCol_ = isCol;
 	size_t j = 0;
 	for (auto i = cells.begin(); i != cells.end(); ++i)
@@ -30,6 +30,10 @@ Row::Row(list<Cell> cells, bool isCol)
 		Cell newCell = Cell(*i);
 		cells_[j] = newCell;
 		++j;
+		if ( (*i).getValue() != 0 )
+		{
+			++rowSize_;
+		}
 	}
 }
 

@@ -51,11 +51,6 @@ public:
     Row getRow(size_t r);
     Row getCol(size_t c);
 	Square getSquare(size_t s);
- 
-    //setters
-    Row makeRow(int values [9]);
-	Row makeCol(int values[9]);
-    Square makeSquare(int values [9]);
 
 	//operators
 	bool operator==(const SudokuBoard& other);
@@ -64,6 +59,7 @@ public:
  
     //member functions 
     bool isComplete();
+    size_t setValue(Cell cell);
     bool inValidSolution();
     void updatePossibilities();
 
@@ -72,6 +68,8 @@ public:
     Row columns_[9];
 	//index reads row then column
     Square squares_[9];
+private:
+list<size_t> intersect(list<size_t> list1, list<size_t> list2);
 
 };
 #endif

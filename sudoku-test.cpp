@@ -804,7 +804,7 @@ bool boardCellConstructorTest()
 	}
 
 
-	SudokuBoard testBoard1 = SudokuBoard(cells);	//segmentation fault occurs here in the cell constructor
+	SudokuBoard testBoard1 = SudokuBoard(cells);	
 	affirm(testBoard1.rows_[0] == Row());
 	affirm(testBoard1.rows_[1] == Row());
 	affirm(testBoard1.rows_[2] == Row());
@@ -815,16 +815,6 @@ bool boardCellConstructorTest()
 	affirm(testBoard1.rows_[7] == Row());
 	affirm(testBoard1.rows_[8] == Row());
 
-	affirm(testBoard1.columns_[0] == Row());
-	affirm(testBoard1.columns_[1] == Row());
-	affirm(testBoard1.columns_[2] == Row());
-	affirm(testBoard1.columns_[3] == Row());
-	affirm(testBoard1.columns_[4] == Row());
-	affirm(testBoard1.columns_[5] == Row());
-	affirm(testBoard1.columns_[6] == Row());
-	affirm(testBoard1.columns_[7] == Row());
-	affirm(testBoard1.columns_[8] == Row());
-	
 	affirm(testBoard1.squares_[0] == Square());
 	affirm(testBoard1.squares_[1] == Square());
 	affirm(testBoard1.squares_[2] == Square());
@@ -842,6 +832,7 @@ bool boardCellConstructorTest()
 	{
 		cells2[i] = Cell();
 	}
+
 	//firt row
 	cells2[0] = Cell (1 , 0 , 0 , 1);
 	cells2[1] = Cell (2 , 0 , 1 , 1);
@@ -857,8 +848,8 @@ bool boardCellConstructorTest()
 	cells2[18] = Cell (6 , 2 , 0 , 1);
 	cells2[57] = Cell (4 , 6 , 3 , 8);
 	
-	SudokuBoard testBoard2 = SudokuBoard(cells2);	//segmentation fault occurs here in the cell array parameterized constructor
-	
+	SudokuBoard testBoard2 = SudokuBoard(cells2);	
+
 	affirm(testBoard2.rows_[3] == Row());
 	affirm(testBoard2.rows_[4] == Row());
 	affirm(testBoard2.rows_[5] == Row());
@@ -997,14 +988,17 @@ bool boardGetRowTest()
 	}
 	SudokuBoard testBoard = SudokuBoard(cells2);
 	affirm(testBoard.getRow(0) == Row(cells, false));
-
+	Row testRow = Row(cells, false);
 	list<Cell> cells3 = list<Cell>();
+	
 	cells3.push_back(cells2[18]);
 	for (size_t i = 0; i < 8; ++i)
 	{
 		cells3.push_back(Cell());
 	}
+
 	Row row3 = Row(cells3, false);
+
 	affirm(testBoard.getRow(2) == row3);
 
 	return log.summarize();
@@ -1016,10 +1010,6 @@ bool boardGetColumnTest()
 	TestingLogger log("Board getColumn Test");
 
 	SudokuBoard board = SudokuBoard();
-	for (size_t i = 0; i < 9; ++i)
-	{
-		affirm(board.getCol(i) == Row());
-	}
 
 
 	Cell cells2[81];
@@ -1038,7 +1028,6 @@ bool boardGetColumnTest()
 	cells2[8] = Cell(9, 8, 0, 7);
 	// random cells scattered throughout 
 	cells2[13] = Cell(6, 1, 4, 2);
-	cells2[18] = Cell(6, 2, 0, 1);
 	cells2[57] = Cell(4, 6, 3, 8);
 
 	list<Cell> cells = list<Cell>();
@@ -1048,7 +1037,6 @@ bool boardGetColumnTest()
 	}
 	SudokuBoard testBoard = SudokuBoard(cells2);
 	affirm(testBoard.getCol(0) == Row(cells, true));
-
 
 
 	return log.summarize();
@@ -1100,52 +1088,388 @@ bool boardGetSquareTest()
 	return log.summarize();
 }
 
-bool boardMakeRowTest()
-{
-	throw new exception();
-}
-
-bool boardMakeSquareTest()
-{
-	throw new exception();
-}
-
-bool boardEqualsTest()
-{
-	TestingLogger log("Board Comparison Operator Test");
-
-	return log.summarize();
-}
-
 bool boardIsCompleteTest()
 {
-	throw new exception();
-}
+	TestingLogger log ("Board Complete Test");
 
-bool boardInValidSolutionTest()
-{
-	throw new exception();
-}
+	SudokuBoard empty = SudokuBoard();
+	affirm(!empty.isComplete());
 
-bool boardUpdatePossibilitiesTest()
-{
-	throw new exception();
-}
+	Cell cells[81]; 
+	cells[0] = Cell(1, 0 , 0 , 1);
+	for (size_t i = 1; i < 81; ++i)
+	{
+		cells[i] = Cell();
+	}
+	
+	SudokuBoard singleCell = SudokuBoard(cells);
+	affirm(!singleCell.isComplete());
 
-bool bigBoardTest()
-{
-	TestingLogger log("Extensive Board Test");
+	Cell cells2[81]; 
+	//first column
+	cells2[0] = Cell(1 , 0 , 0 , 1);
+	cells2[9] = Cell(2 , 1 , 0 , 1);
+	cells2[18] = Cell(3 , 2 , 0 , 1);
+	cells2[27] = Cell(4 , 3 , 0 , 4);
+	cells2[36] = Cell(5 , 4 , 0 , 4);
+	cells2[45] = Cell(6 , 5 , 0 , 4);
+	cells2[54] = Cell(7 , 6 , 0 , 7);
+	cells2[63] = Cell(8 , 7 , 0 , 7);
+	cells2[72] = Cell(9 , 8 , 0 , 7);
+
+	//second column
+	cells2[0 + 1] = Cell(2, 0 , 1 , 1);
+	cells2[9 + 1] = Cell(3, 1 , 1 , 1);
+	cells2[18 + 1] = Cell(4, 2 , 1 , 1);
+	cells2[27 + 1] = Cell(5, 3 , 1 , 4);
+	cells2[36 + 1] = Cell(6, 4 , 1 , 4);
+	cells2[45 + 1] = Cell(7, 5 , 1 , 4);
+	cells2[54 + 1] = Cell(8, 6 , 1 , 7);
+	cells2[63 + 1] = Cell(9, 7 , 1 , 7);
+	cells2[72 + 1] = Cell(1, 8 , 1 , 7);
+
+	//third column
+	cells2[0 + 2] = Cell(3, 0 , 2 , 1);
+	cells2[9 + 2] = Cell(4, 1 , 2 , 1);
+	cells2[18 + 2] = Cell(5, 2 , 2 , 1);
+	cells2[27 + 2] = Cell(6, 3 , 2 , 4);
+	cells2[36 + 2] = Cell(7, 4 , 2 , 4);
+	cells2[45 + 2] = Cell(8, 5 , 2 , 4);
+	cells2[54 + 2] = Cell(9, 6 , 2 , 7);
+	cells2[63 + 2] = Cell(1, 7 , 2 , 7);
+	cells2[72 + 2] = Cell(2, 8 , 2 , 7);
+
+	//fourth column
+	cells2[0 + 3] = Cell(1 + 3 , 0 , 3 , 1 + 1);
+	cells2[9 + 3] = Cell(2 + 3 , 1 , 3 , 1 + 1);
+	cells2[18 + 3] = Cell(3 + 3, 2 , 3 , 1 + 1);
+	cells2[27 + 3] = Cell(4 + 3, 3 , 3 , 4 + 1);
+	cells2[36 + 3] = Cell(5 + 3, 4 , 3 , 4 + 1);
+	cells2[45 + 3] = Cell(6 + 3, 5 , 3 , 4 + 1);
+	cells2[54 + 3] = Cell(1, 6 , 3 , 7 + 1);
+	cells2[63 + 3] = Cell(2, 7 , 3 , 7 + 1);
+	cells2[72 + 3] = Cell(3, 8 , 3 , 7 + 1);
+
+	//fifth column
+	cells2[0 + 4] = Cell(1 + 4 , 0 , 4 , 1 + 1);
+	cells2[9 + 4] = Cell(2 + 4 , 1 , 4 , 1 + 1);
+	cells2[18 + 4] = Cell(3 + 4, 2 , 4 , 1 + 1);
+	cells2[27 + 4] = Cell(4 + 4, 3 , 4 , 4 + 1);
+	cells2[36 + 4] = Cell(5 + 4, 4 , 4 , 4 + 1);
+	cells2[45 + 4] = Cell(1, 5 , 4 , 4 + 1);
+	cells2[54 + 4] = Cell(2,  6 , 4 , 7 + 1);
+	cells2[63 + 4] = Cell(3, 7 , 4 , 7 + 1);
+	cells2[72 + 4] = Cell(4, 8 , 4 , 7 + 1);
+
+	//sixth column
+	cells2[0 + 5] = Cell(1 + 5 , 0 , 5 , 1 + 1);
+	cells2[9 + 5] = Cell(2 + 5 , 1 , 5 , 1 + 1);
+	cells2[18 + 5] = Cell(3 + 5, 2 , 5 , 1 + 1);
+	cells2[27 + 5] = Cell(4 + 5, 3 , 5 , 4 + 1);
+	cells2[36 + 5] = Cell(1, 4 , 5 , 4 + 1);
+	cells2[45 + 5] = Cell(2, 5 , 5 , 4 + 1);
+	cells2[54 + 5] = Cell(3, 6 , 5 , 7 + 1);
+	cells2[63 + 5] = Cell(4, 7 , 5 , 7 + 1);
+	cells2[72 + 5] = Cell(5, 8 , 5 , 7 + 1);
+
+	//seventh column
+	cells2[0 + 6] = Cell(1 + 6 , 0 , 6 , 1 + 2);
+	cells2[9 + 6] = Cell(2 + 6 , 1 , 6 , 1 + 2);
+	cells2[18 + 6] = Cell(3 + 6, 2 , 6 , 1 + 2);
+	cells2[27 + 6] = Cell(1, 3 , 6 , 4 + 2);
+	cells2[36 + 6] = Cell(2, 4 , 6 , 4 + 2);
+	cells2[45 + 6] = Cell(3, 5 , 6 , 4 + 2);
+	cells2[54 + 6] = Cell(4, 6 , 6 , 7 + 2);
+	cells2[63 + 6] = Cell(5, 7 , 6 , 7 + 2);
+	cells2[72 + 6] = Cell(6, 8 , 6 , 7 + 2);
+
+	//eigth column
+	cells2[0 + 7] = Cell(1 + 7 , 0 , 7 , 1 + 2);
+	cells2[9 + 7] = Cell(2 + 7 , 1 , 7 , 1 + 2);
+	cells2[18 + 7] = Cell(1, 2 , 7 , 1 + 2);
+	cells2[27 + 7] = Cell(2, 3 , 7 , 4 + 2);
+	cells2[36 + 7] = Cell(3, 4 , 7 , 4 + 2);
+	cells2[45 + 7] = Cell(4, 5 , 7 , 4 + 2);
+	cells2[54 + 7] = Cell(5, 6 , 7 , 7 + 2);
+	cells2[63 + 7] = Cell(6, 7 , 7 , 7 + 2);
+	cells2[72 + 7] = Cell(7, 8 , 7 , 7 + 2);
+
+	//ninth column
+	cells2[0 + 8] = Cell(1 + 8 , 0 , 8 , 1 + 2);
+	cells2[9 + 8] = Cell(1 , 1 , 8 , 1 + 2);
+	cells2[18 + 8] = Cell(2, 2 , 8 , 1 + 2);
+	cells2[27 + 8] = Cell(3, 3 , 8 , 4 + 2);
+	cells2[36 + 8] = Cell(4, 4 , 8 , 4 + 2);
+	cells2[45 + 8] = Cell(5, 5 , 8 , 4 + 2);
+	cells2[54 + 8] = Cell(6, 6 , 8 , 7 + 2);
+	cells2[63 + 8] = Cell(7, 7 , 8 , 7 + 2);
+	cells2[72 + 8] = Cell(8, 8 , 8 , 7 + 2);
+
+	SudokuBoard fullBoard = SudokuBoard(cells2);
+	affirm(fullBoard.isComplete());
 
 	return log.summarize();
 }
+
+bool boardSetValueTest()
+{
+	TestingLogger log ("Board Set Value Test");
+
+	Cell cells[81];
+	for (size_t i = 0; i < 81; ++i)
+	{
+		cells[i] = Cell();
+	}
+	SudokuBoard empty = SudokuBoard(cells);
+	Cell input1 = Cell (2 , 0 , 1 , 1);
+	affirm (empty.setValue(input1) == 2);
+	affirm(empty.rows_[0].cells_[1] == input1);
+	affirm(empty.columns_[1].cells_[0] == input1);
+	affirm(empty.squares_[0].cells_[1] == input1);
+
+	Cell input2 = Cell (6 , 4 , 7 , 6);
+	affirm(empty.setValue(input2) == 6);
+	affirm(empty.rows_[4].cells_[7] == input2);
+	affirm(empty.columns_[7].cells_[4] == input2);
+	affirm(empty.squares_[5].cells_[4] == input2);
+
+	return log.summarize();
+}
+bool boardUpdatePossibilitiesTest()
+{
+	TestingLogger log("Board boardUpdatePossibilitiesTest");
+
+	list<size_t> possibilities; 
+	for (size_t i = 1; i < 10; ++i)
+	{
+		possibilities.push_back(i);
+	}
+
+	Cell cells[81];
+	for (size_t i = 0; i < 81; ++i)
+	{
+		cells[i] = Cell();
+	}
+	SudokuBoard empty = SudokuBoard(cells);
+
+	for (size_t i = 0; i < 9; ++ i)
+	{
+		for (size_t j = 0; j < 9; ++j )
+		{
+			affirm(empty.rows_[i].cells_[j].possibilities_ == possibilities);
+			affirm(empty.columns_[i].cells_[j].possibilities_ == possibilities);
+			affirm(empty.squares_[i].cells_[j].possibilities_ == possibilities);
+		}
+	}
+
+	Cell input1 = Cell (2 , 0 , 1 , 1);
+	empty.setValue(input1);
+	possibilities.remove(2);
+	empty.updatePossibilities();
+
+
+
+	Cell input3 = Cell (1 , 0 , 0 , 1);
+	empty.setValue(input3);
+	empty.updatePossibilities();
+
+	Cell cells20 = Cell (1, 0 , 0 , 1);
+	Cell cells29 = Cell(2 , 1 , 0 , 1);
+	Cell cells218 = Cell(3 , 2 , 0 , 1);
+	Cell cells227 = Cell(4 , 3 , 0 , 4);
+	Cell cells236 = Cell(5 , 4 , 0 , 4);
+	Cell cells245 = Cell(6 , 5 , 0 , 4);
+	Cell cells254 = Cell(7 , 6 , 0 , 7);
+	Cell cells263 = Cell(8 , 7 , 0 , 7);
+	Cell cells272 = Cell(9 , 8 , 0 , 7);
+
+	empty.setValue(cells29);
+	empty.setValue(cells218);
+	empty.setValue(cells227);
+	empty.setValue(cells236);
+	empty.setValue(cells245);
+	empty.setValue(cells254);
+	empty.setValue(cells263);
+	empty.setValue(cells272);
+
+	//second column
+	cells29  = Cell(3, 1 , 1 , 1);
+	cells218 = Cell(4, 2 , 1 , 1);
+	cells227 = Cell(5, 3 , 1 , 4);
+	cells236 = Cell(6, 4 , 1 , 4);
+	cells245 = Cell(7, 5 , 1 , 4);
+	cells254 = Cell(8, 6 , 1 , 7);
+	cells263 = Cell(9, 7 , 1 , 7);
+	cells272 = Cell(1, 8 , 1 , 7);
+
+	empty.setValue(cells29);
+	empty.setValue(cells218);
+	empty.setValue(cells227);
+	empty.setValue(cells236);
+	empty.setValue(cells245);
+	empty.setValue(cells254);
+	empty.setValue(cells263);
+	empty.setValue(cells272);
+
+	//third column
+	cells20 = Cell(3, 0 , 2 , 1);
+	cells29 = Cell(4, 1 , 2 , 1);
+	cells218 = Cell(5, 2 , 2 , 1);
+	cells227 = Cell(6, 3 , 2 , 4);
+	cells236 = Cell(7, 4 , 2 , 4);
+	cells245 = Cell(8, 5 , 2 , 4);
+	cells254 = Cell(9, 6 , 2 , 7);
+	cells263 = Cell(1, 7 , 2 , 7);
+	cells272 = Cell(2, 8 , 2 , 7);
+
+	empty.setValue(cells20);
+	empty.setValue(cells29);
+	empty.setValue(cells218);
+	empty.setValue(cells227);
+	empty.setValue(cells236);
+	empty.setValue(cells245);
+	empty.setValue(cells254);
+	empty.setValue(cells263);
+	empty.setValue(cells272);
+
+	//fourth column
+	cells20 = Cell(1 + 3 , 0 , 3 , 1 + 1);
+	cells29 = Cell(2 + 3 , 1 , 3 , 1 + 1);
+	cells218 = Cell(3 + 3, 2 , 3 , 1 + 1);
+	cells227 = Cell(4 + 3, 3 , 3 , 4 + 1);
+	cells236 = Cell(5 + 3, 4 , 3 , 4 + 1);
+	cells245 = Cell(6 + 3, 5 , 3 , 4 + 1);
+	cells254 = Cell(1, 6 , 3 , 7 + 1);
+	cells263 = Cell(2, 7 , 3 , 7 + 1);
+	cells272 = Cell(3, 8 , 3 , 7 + 1);
+
+	empty.setValue(cells20);
+	empty.setValue(cells29);
+	empty.setValue(cells218);
+	empty.setValue(cells227);
+	empty.setValue(cells236);
+	empty.setValue(cells245);
+	empty.setValue(cells254);
+	empty.setValue(cells263);
+	empty.setValue(cells272);
+
+	//fifth column
+	cells20 = Cell(1 + 4 , 0 , 4 , 1 + 1);
+	cells29 = Cell(2 + 4 , 1 , 4 , 1 + 1);
+	cells218 = Cell(3 + 4, 2 , 4 , 1 + 1);
+	cells227 = Cell(4 + 4, 3 , 4 , 4 + 1);
+	cells236 = Cell(5 + 4, 4 , 4 , 4 + 1);
+	cells245 = Cell(1, 5 , 4 , 4 + 1);
+	cells254 = Cell(2,  6 , 4 , 7 + 1);
+	cells263 = Cell(3, 7 , 4 , 7 + 1);
+	cells272 = Cell(4, 8 , 4 , 7 + 1);
+
+	empty.setValue(cells20);
+	empty.setValue(cells29);
+	empty.setValue(cells218);
+	empty.setValue(cells227);
+	empty.setValue(cells236);
+	empty.setValue(cells245);
+	empty.setValue(cells254);
+	empty.setValue(cells263);
+	empty.setValue(cells272);
+
+	//sixth column
+	cells20 = Cell(1 + 5 , 0 , 5 , 1 + 1);
+	cells29 = Cell(2 + 5 , 1 , 5 , 1 + 1);
+	cells218 = Cell(3 + 5, 2 , 5 , 1 + 1);
+	cells227 = Cell(4 + 5, 3 , 5 , 4 + 1);
+	cells236 = Cell(1, 4 , 5 , 4 + 1);
+	cells245 = Cell(2, 5 , 5 , 4 + 1);
+	cells254 = Cell(3, 6 , 5 , 7 + 1);
+	cells263 = Cell(4, 7 , 5 , 7 + 1);
+	cells272 = Cell(5, 8 , 5 , 7 + 1);
+
+	empty.setValue(cells20);
+	empty.setValue(cells29);
+	empty.setValue(cells218);
+	empty.setValue(cells227);
+	empty.setValue(cells236);
+	empty.setValue(cells245);
+	empty.setValue(cells254);
+	empty.setValue(cells263);
+	empty.setValue(cells272);
+
+	//seventh column
+	cells20 = Cell(1 + 6 , 0 , 6 , 1 + 2);
+	cells29 = Cell(2 + 6 , 1 , 6 , 1 + 2);
+	cells218 = Cell(3 + 6, 2 , 6 , 1 + 2);
+	cells227 = Cell(1, 3 , 6 , 4 + 2);
+	cells236 = Cell(2, 4 , 6 , 4 + 2);
+	cells245 = Cell(3, 5 , 6 , 4 + 2);
+	cells254 = Cell(4, 6 , 6 , 7 + 2);
+	cells263 = Cell(5, 7 , 6 , 7 + 2);
+	cells272 = Cell(6, 8 , 6 , 7 + 2);
+
+	empty.setValue(cells20);
+	empty.setValue(cells29);
+	empty.setValue(cells218);
+	empty.setValue(cells227);
+	empty.setValue(cells236);
+	empty.setValue(cells245);
+	empty.setValue(cells254);
+	empty.setValue(cells263);
+	empty.setValue(cells272);
+
+	//eigth column
+	cells20 = Cell(1 + 7 , 0 , 7 , 1 + 2);
+	cells29 = Cell(2 + 7 , 1 , 7 , 1 + 2);
+	cells218 = Cell(1, 2 , 7 , 1 + 2);
+	cells227 = Cell(2, 3 , 7 , 4 + 2);
+	cells236 = Cell(3, 4 , 7 , 4 + 2);
+	cells245 = Cell(4, 5 , 7 , 4 + 2);
+	cells254 = Cell(5, 6 , 7 , 7 + 2);
+	cells263 = Cell(6, 7 , 7 , 7 + 2);
+	cells272 = Cell(7, 8 , 7 , 7 + 2);
+
+	empty.setValue(cells20);
+	empty.setValue(cells29);
+	empty.setValue(cells218);
+	empty.setValue(cells227);
+	empty.setValue(cells236);
+	empty.setValue(cells245);
+	empty.setValue(cells254);
+	empty.setValue(cells263);
+	empty.setValue(cells272);
+
+	//ninth column
+	cells20 = Cell(1 + 8 , 0 , 8 , 1 + 2);
+	cells29 = Cell(1 , 1 , 8 , 1 + 2);
+	cells218 = Cell(2, 2 , 8 , 1 + 2);
+	cells227 = Cell(3, 3 , 8 , 4 + 2);
+	cells236 = Cell(4, 4 , 8 , 4 + 2);
+	cells245 = Cell(5, 5 , 8 , 4 + 2);
+	cells254 = Cell(6, 6 , 8 , 7 + 2);
+	cells263 = Cell(7, 7 , 8 , 7 + 2);
+	cells272 = Cell(8, 8 , 8 , 7 + 2);
+
+	empty.setValue(cells20);
+	empty.setValue(cells29);
+	empty.setValue(cells218);
+	empty.setValue(cells227);
+	empty.setValue(cells236);
+	empty.setValue(cells245);
+	empty.setValue(cells254);
+	empty.setValue(cells263);
+	empty.setValue(cells272);
+
+	empty.updatePossibilities();
+	
+	affirm (empty.isComplete());
+	return log.summarize();
+}
+
 
 
 // --------------------------
 //		Running the tests
 // --------------------------
 
-// Called if the tests run too long
-// taken from 
 
 int main()
 {
@@ -1186,13 +1510,9 @@ int main()
 	affirm(boardGetRowTest());
 	affirm(boardGetColumnTest());
 	affirm(boardGetSquareTest());
-//	affirm(boardMakeRowTest());
-//	affirm(boardMakeSquareTest());
-//	affirm(boardEqualsTest());
-//	affirm(boardIsCompleteTest());
-//	affirm(boardInValidSolutionTest());
-//	affirm(boardUpdatePossibilitiesTest());
-//	affirm(bigBoardTest());
+	affirm(boardIsCompleteTest());
+	affirm(boardSetValueTest());
+	affirm(boardUpdatePossibilitiesTest());
 
 	if (alltests.summarize(true))
 	{
