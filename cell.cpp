@@ -29,22 +29,34 @@ Cell::Cell()
 
 Cell::Cell(int value, size_t row, size_t col, size_t squareNum)
 {
-    value_ = value;
-	location_[0] = row;
-	location_[1] = col;
-	location_[2] = squareNum;
-    if (value == 0)
+    if (row > 8 || col > 8 || squareNum < 1 || squareNum > 9)
     {
-        empty_ = true;
-        for (size_t i  = 1; i < 10 ; ++i)
-        {
-            possibilities_.push_back(i);
-        }
-    } else {
-        empty_ = false;
-        possibilities_.push_back(value);
+        value_ = 100;
+        location_[0] = 0;
+        location_[1] = 0;
+        location_[2] = 1;
     }
-    
+    else 
+    {
+
+        value_ = value;
+	    location_[0] = row;
+	    location_[1] = col;
+	    location_[2] = squareNum;
+        if (value == 0)
+        {
+            empty_ = true;
+            for (size_t i  = 1; i < 10 ; ++i)
+            {
+                possibilities_.push_back(i);
+            }
+        } 
+        else 
+        {
+            empty_ = false;
+            possibilities_.push_back(value);
+        }
+    }
 }
 
 Cell::Cell(int value)

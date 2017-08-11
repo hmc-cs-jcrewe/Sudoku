@@ -202,32 +202,15 @@ int main()
     empty.updatePossibilities();
 
     std::cout << "Original Board: " << std::endl;
-    for (size_t i = 0; i < 9 ; ++i)
-    {
-        for (size_t j = 0; j < 9; ++j)
-        {
-            std::cout << "Row: " << i << "      Column: " << j << "     square: " << empty.rows_[i].cells_[j].location_[2] << "     value: " << empty.rows_[i].cells_[j].getValue() << std::endl;
-        }
-        std::cout << "       ----------------------------" << std::endl;
-    }
-
-    std::cout << " " << std::endl;
+    empty.print(std::cout);
+    std::cout << std::endl;
 
     SudokuBoard solvedBoard = solve(empty);
-    if (solvedBoard.rows_[0].cells_[0].getValue() != 100)
+
+    if (solvedBoard.rows_[0].cells_[0].getValue() != 100)   //if the solver succeeded
     {
         std::cout << "Solved Board: " << std::endl;
-        for (size_t i = 0; i < 9 ; ++i)
-        {
-            for (size_t j = 0; j < 9; ++j)
-            {
-                std::cout << "Row: " << i << "      Column: " << j << "     square: " << solvedBoard.rows_[i].cells_[j].location_[2] << "     value: " << solvedBoard.rows_[i].cells_[j].getValue() << std::endl;
-            }
-            
-            std::cout << "       ----------------------------" << std::endl;
-        }
-
+        solvedBoard.print(std::cout);
     }
-    
-    //TODO Write print function for boards
+
 }

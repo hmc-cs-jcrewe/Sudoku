@@ -86,10 +86,8 @@ bool cellLocationConstructorTest()
 {
 	TestingLogger log("Cell Location Constructor Test");
 	// sets the cell in the 1st row, 3rd column and first square
-	// TODO -- place limits in the constructor that make sense with the board
 	//		ex: row < 10 ; col < 10 ; row and column intersect in square; value isn't already located in the row / col?
 
-	//TODO -- fix this and the value constructor
 	size_t testLocation[3] = { 1 , 3, 1 };
 	int value = 8;
 	list<size_t> pos = list<size_t>();

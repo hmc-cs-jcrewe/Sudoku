@@ -111,9 +111,7 @@ SudokuBoard::SudokuBoard(Cell cells[81])
         columns_[i].rowSize_ = 0;
         squares_[i].squareSize_ = 0;
     }
-    //construct the rows_ array
-    //need to construct the 0 ,0 location specially because the default cells also have  0 , 0 locations    TODO -- fix this bug
-    
+    //construct the rows_ array    
     //having trouble dealing with that first cell, won't be a problem in the actual application because every cell will have a location
     if (cells[0].getValue() != 0)
     {
@@ -371,7 +369,6 @@ void SudokuBoard::updatePossibilities()
         }
     }
 
-    //TODO: combine row/column possibilities with square possibilities
 }
 
 // Finding the intersection between two possibilities lists -- the nested loops aren't a 
@@ -390,6 +387,49 @@ list<size_t> SudokuBoard::intersect(list<size_t> list1, list<size_t> list2)
         }
     }
     return results;
+}
+
+void SudokuBoard::print(ostream& loc)
+{
+    loc << "\e[1m" << "------------------------------------" << "\e[0m" << std::endl;
+    for (size_t i = 0; i < 9; ++i)
+    {
+        for (Cell cell : rows_[i].cells_)
+        {
+            if (cell.location_[1] == 0 || cell.location_[1] == 3 || cell.location_[1] == 6)
+            {
+                if (cell.getValue() != 0)
+                {
+                    loc << "\e[1m" << "| " << "\e[0m" << cell.getValue() << " ";
+                }
+                else
+                {
+                    loc << "\e[1m" << "| " << "\e[0m" << " " << " ";
+                }
+            }
+            else 
+            {
+                if (cell.getValue() != 0)
+                {
+                    loc << "| " << cell.getValue() << " ";
+                }
+                else
+                {
+                    loc << "| " << " " << " ";
+                }
+            }
+        }
+        loc << "\e[1m" << "|" << "\e[0m" << std::endl;
+        if (i == 2 || i == 5 || i == 8)
+        {
+            loc << "\e[1m" << "------------------------------------" << "\e[0m" << std::endl;
+        }
+        else
+        {
+            loc << "------------------------------------" << std::endl;
+        }
+
+    }
 }
 
 

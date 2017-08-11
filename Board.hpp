@@ -13,6 +13,7 @@
 #include <cstddef>
 #include <stdexcept>
 #include <list>
+#include <iostream>
 
 
 
@@ -145,6 +146,14 @@ public:
      *
      */
     void updatePossibilities();
+
+    /**
+     * \brief Prints the SudokuBoard
+     *
+     * \param loc   The ostream where we wish to print the board
+     *
+     */
+    void print(ostream& loc);
 
     //data members
     Row rows_[9];
