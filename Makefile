@@ -24,6 +24,9 @@ all:	$(TARGETS)
 test: sudoku-test
 		./sudoku-test
 
+solution: solver
+		./solver
+
 Board:	$(BOARD_OBJS)
 	$(CXX) $(LDFLAGS) $(CXXFLAGS) -o $@ -lpthread $(BOARD_OBJS) \
 		$(LIBS)

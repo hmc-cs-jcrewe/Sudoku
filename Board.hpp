@@ -34,7 +34,7 @@ using namespace std;
 class SudokuBoard {
 public:
    // default constructor 
-    SudokuBoard() = default;
+    SudokuBoard();
  
     //paramaterized constructor
     SudokuBoard(Cell cells[81]);

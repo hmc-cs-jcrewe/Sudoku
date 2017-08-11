@@ -774,19 +774,20 @@ bool boardDefaultConstructorTest()
 {
 	TestingLogger log( "Board Default Constructor Test");
 	SudokuBoard testBoard = SudokuBoard();
+	Cell defaultCell = Cell();
 	for (size_t i = 0; i < 9; ++i)
 	{
 		for (Cell testCell : (testBoard.getRow(i)).cells_)
 		{
-			affirm(testCell == Cell());
+			affirm(testCell.possibilities_ == defaultCell.possibilities_);
 		}
 		for (Cell testCell : (testBoard.getRow(i)).cells_)
 		{
-			affirm(testCell == Cell());
+			affirm(testCell.possibilities_ == defaultCell.possibilities_);
 		}
 		for (Cell testCell : testBoard.getSquare(i).cells_)
 		{
-			affirm(testCell == Cell());
+			affirm(testCell.possibilities_ == defaultCell.possibilities_);
 		}
 	}
 	
@@ -950,16 +951,7 @@ bool boardCopyConstructorTest()
 bool boardGetRowTest()
 {
 	TestingLogger log("Board Get Row Test");
-	SudokuBoard board1 = SudokuBoard();
-	affirm(board1.getRow(0) == Row());
-	affirm(board1.getRow(1) == Row());
-	affirm(board1.getRow(2) == Row());
-	affirm(board1.getRow(3) == Row());
-	affirm(board1.getRow(4) == Row());
-	affirm(board1.getRow(5) == Row());
-	affirm(board1.getRow(6) == Row());
-	affirm(board1.getRow(7) == Row());
-	affirm(board1.getRow(8) == Row());
+
 
 	Cell cells2[81];
 	for (size_t i = 0; i < 81; ++i)
@@ -1045,12 +1037,6 @@ bool boardGetColumnTest()
 bool boardGetSquareTest()
 {
 	TestingLogger log("Board getSquare Test");
-
-	SudokuBoard board = SudokuBoard();
-	for (size_t i = 0; i < 9; ++i)
-	{
-		affirm(board.getSquare(i) == Square());
-	}
 
 	Cell cells[81];
 	for (size_t i = 0; i < 81; ++i)

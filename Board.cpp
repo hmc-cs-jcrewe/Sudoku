@@ -15,7 +15,94 @@
  #include "Board.hpp"
 
 
+SudokuBoard::SudokuBoard()
+{
+        //Create 81 empty cells that all contain a location
+    Cell cells[81];
+    cells[0] = Cell(0,0,0,1);
+    cells[1] = Cell(0,0,1,1);
+    cells[2] = Cell(0,0,2,1);
+    cells[3] = Cell(0,0,3,2);
+    cells[4] = Cell(0,0,4,2);
+    cells[5] = Cell(0,0,5,2);
+    cells[6] = Cell(0,0,6,3);
+    cells[7] = Cell(0,0,7,3);
+    cells[8] = Cell(0,0,8,3);
+    cells[9] = Cell(0,1,0,1);
+    cells[10] = Cell(0,1,1,1);
+    cells[11] = Cell(0,1,2,1);
+    cells[12] = Cell(0,1,3,2);
+    cells[13] = Cell(0,1,4,2);
+    cells[14] = Cell(0,1,5,2);
+    cells[15] = Cell(0,1,6,3);
+    cells[16] = Cell(0,1,7,3);
+    cells[17] = Cell(0,1,8,3);
+    cells[18] = Cell(0,2,0,1);
+    cells[19] = Cell(0,2,1,1);
+    cells[20] = Cell(0,2,2,1);
+    cells[21] = Cell(0,2,3,2);
+    cells[22] = Cell(0,2,4,2);
+    cells[23] = Cell(0,2,5,2);
+    cells[24] = Cell(0,2,6,3);
+    cells[25] = Cell(0,2,7,3);
+    cells[26] = Cell(0,2,8,3);
+    cells[27] = Cell(0,3,0,4);
+    cells[28] = Cell(0,3,1,4);
+    cells[29] = Cell(0,3,2,4);
+    cells[30] = Cell(0,3,3,5);
+    cells[31] = Cell(0,3,4,5);
+    cells[32] = Cell(0,3,5,5);
+    cells[33] = Cell(0,3,6,6);
+    cells[34] = Cell(0,3,7,6);
+    cells[35] = Cell(0,3,8,6);
+    cells[36] = Cell(0,4,0,4);
+    cells[37] = Cell(0,4,1,4);
+    cells[38] = Cell(0,4,2,4);
+    cells[39] = Cell(0,4,3,5);
+    cells[40] = Cell(0,4,4,5);
+    cells[41] = Cell(0,4,5,5);
+    cells[42] = Cell(0,4,6,6);
+    cells[43] = Cell(0,4,7,6);
+    cells[44] = Cell(0,4,8,6);
+    cells[45] = Cell(0,5,0,4);
+    cells[46] = Cell(0,5,1,4);
+    cells[47] = Cell(0,5,2,4);
+    cells[48] = Cell(0,5,3,5);
+    cells[49] = Cell(0,5,4,5);
+    cells[50] = Cell(0,5,5,5);
+    cells[51] = Cell(0,5,6,6);
+    cells[52] = Cell(0,5,7,6);
+    cells[53] = Cell(0,5,8,6);
+    cells[54] = Cell(0,6,0,7);
+    cells[55] = Cell(0,6,1,7);
+    cells[56] = Cell(0,6,2,7);
+    cells[57] = Cell(0,6,3,8);
+    cells[58] = Cell(0,6,4,8);
+    cells[59] = Cell(0,6,5,8);
+    cells[60] = Cell(0,6,6,9);
+    cells[61] = Cell(0,6,7,9);
+    cells[62] = Cell(0,6,8,9);
+    cells[63] = Cell(0,7,0,7);
+    cells[64] = Cell(0,7,1,7);
+    cells[65] = Cell(0,7,2,7);
+    cells[66] = Cell(0,7,3,8);
+    cells[67] = Cell(0,7,4,8);
+    cells[68] = Cell(0,7,5,8);
+    cells[69] = Cell(0,7,6,9);
+    cells[70] = Cell(0,7,7,9);
+    cells[71] = Cell(0,7,8,9);
+    cells[72] = Cell(0,8,0,7);
+    cells[73] = Cell(0,8,1,7);
+    cells[74] = Cell(0,8,2,7);
+    cells[75] = Cell(0,8,3,8);
+    cells[76] = Cell(0,8,4,8);
+    cells[77] = Cell(0,8,5,8);
+    cells[78] = Cell(0,8,6,9);
+    cells[79] = Cell(0,8,7,9);
+    cells[80] = Cell(0,8,8,9);
 
+    *this = SudokuBoard(cells);
+}
 SudokuBoard::SudokuBoard(Cell cells[81])
 {
     for (size_t i = 0; i < 9; ++i)
