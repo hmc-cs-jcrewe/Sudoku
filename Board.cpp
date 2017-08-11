@@ -1,9 +1,9 @@
 /**
- * \file board.cpp
+ * \file Board.cpp
  *
  * \author Jackson Crewe
  *
- * \brief Declares the SudokuBoard class.
+ * \brief Implements the SudokuBoard class. For further documentation, see Board.hpp
  */
 
  //includes go here
@@ -271,32 +271,6 @@ bool SudokuBoard::isComplete()
         }
     }
     return true;
-}
-
-//when there are no more possibilities left for any of the cells but the board isn't complete
-bool SudokuBoard::inValidSolution()
-{
-	if (isComplete())
-	{ return false; }
-
-	for (size_t i = 0; i < 9; ++i)
-	{
-		for (size_t j = 0; j < 9; ++j)
-		{
-			if (!(rows_[i].cells_[j].possibilities_.empty()) || !(columns_[i].cells_[j].possibilities_.empty()))
-			{ return false; }
-		}
-	}
-
-    for (int i = 0; i < 3; ++i)
-    {
-        for (int k = 0; k <9; ++k)
-        {
-            if (!(squares_[i].cells_[k].possibilities_.empty()))
-            { return false; }
-        }
-    }
-	return true;
 }
 
 void SudokuBoard::updatePossibilities()

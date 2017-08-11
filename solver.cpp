@@ -34,11 +34,6 @@ SudokuBoard solve(SudokuBoard board)
                     minCell = newCell;
                 }
             }   
-            if (minCell.possibilities_.size() == 0)         //this should never be the case if the inputted board is solvable;
-
-            {
-                break;
-            }
 
             // Create a new board for each of the possibilities in the minCell and add them to the stack
             for (auto i = minCell.possibilities_.begin() ; i != minCell.possibilities_.end(); ++i)
@@ -54,13 +49,14 @@ SudokuBoard solve(SudokuBoard board)
         }
     }
 
+    std::cout << "The program couldn't find a solution to the provided board, are you sure the entered board has a valid solution?" << std::endl;
     SudokuBoard failBoard = SudokuBoard();  // if the board reaches the end of the stack without 
     Cell failCell  = Cell(100, 0  , 0 , 1); // finding a solution return a faulty board 
     failBoard.setValue(failCell);
     return failBoard;
 }
 
-
+//To run in terminal, within the Sudoku directory type: make solution
 int main()
 {
 
@@ -205,25 +201,33 @@ int main()
     
     empty.updatePossibilities();
 
-  // If you wish to see your starting and resultant boards, uncomment all lines below this
+    std::cout << "Original Board: " << std::endl;
+    for (size_t i = 0; i < 9 ; ++i)
+    {
+        for (size_t j = 0; j < 9; ++j)
+        {
+            std::cout << "Row: " << i << "      Column: " << j << "     square: " << empty.rows_[i].cells_[j].location_[2] << "     value: " << empty.rows_[i].cells_[j].getValue() << std::endl;
+        }
+        std::cout << "       ----------------------------" << std::endl;
+    }
 
-  //  std::cout << "Original Board: " << std::endl;
-  //  for (size_t i = 0; i < 9 ; ++i)
-  //  {
-  //      for (size_t j = 0; j < 9; ++j)
-  //      {
-  //          std::cout << "Row: " << i << "      Column: " << j << "     square: " << empty.rows_[i].cells_[j].location_[2] << "     value: " << empty.rows_[i].cells_[j].getValue() << std::endl;
-  //      }
-  //  }
-//
+    std::cout << " " << std::endl;
+
     SudokuBoard solvedBoard = solve(empty);
-  //  std::cout << "Solved Board: " << std::endl;
-  //  for (size_t i = 0; i < 9 ; ++i)
-  //  {
-  //      for (size_t j = 0; j < 9; ++j)
-  //      {
-  //          std::cout << "Row: " << i << "      Column: " << j << "     square: " << solvedBoard.rows_[i].cells_[j].location_[2] << "     value: " << solvedBoard.rows_[i].cells_[j].getValue() << std::endl;
-  //      }
-  //      std::cout << "       ----------------------------" << std::endl;
-  //  }
+    if (solvedBoard.rows_[0].cells_[0].getValue() != 100)
+    {
+        std::cout << "Solved Board: " << std::endl;
+        for (size_t i = 0; i < 9 ; ++i)
+        {
+            for (size_t j = 0; j < 9; ++j)
+            {
+                std::cout << "Row: " << i << "      Column: " << j << "     square: " << solvedBoard.rows_[i].cells_[j].location_[2] << "     value: " << solvedBoard.rows_[i].cells_[j].getValue() << std::endl;
+            }
+            
+            std::cout << "       ----------------------------" << std::endl;
+        }
+
+    }
+    
+    //TODO Write print function for boards
 }

@@ -24,29 +24,82 @@ public:
     //number of cells in the square that contain a value
     size_t squareSize_;
 
-    //default constructor
-    Square();
+   /**
+     * \brief Default constructor for squares
+     *
+     */    Square();
 
-    //paramaterized constructor 
+    /**
+     * \brief Parameterized constructor for squares 
+     *
+     * \param cells     The standard list of cells to be added to the square
+     *
+     */
     Square(list<Cell> cells);
 
-	//copy constructor 
+    /**
+     * \brief Copy constructor for squares 
+     *
+     * \param square      A constant reference to the square we wish to copy
+     *
+     */  
 	Square(const Square& square);
 
-    //operators
-
+    /**
+     * \brief Standard comparison operator for squares  
+     *
+     * \param rhs     The square to which this is being compared
+     *
+     * \returns A boolean describing whether or not the squares are equal
+     *
+     */
     bool operator==(const Square& rhs);
 
+    /**
+     * \brief Standard not-comparison operator for squares  
+     *
+     * \param rhs     The square to which this is being compared
+     *
+     * \returns A boolean describing whether or not the squares are equal
+     *
+     */
     bool operator!=(const Square& rhs);
 
+    /**
+     * \brief Standard assignment operator for squares  
+     *
+     * \param rhs     The square to which this is being assigned
+     *
+     * \returns A square equaling the rhs parameter
+     *
+     */
     Square& operator=(const Square& rhs);
-    //member functions
+    
+    /**
+     * \brief  Checks if the square is complete
+     *
+     * \returns A boolean describing whether or not every cell 
+     *           in the square contains a value
+     *
+     */
     bool isCompleteSquare();
 
+    /**
+     * \brief Updates the possibilities for every cell in the square
+     *
+     */
 	void getPossibilities();
 
+    /**
+     * \brief Sets the value of the provided cell into the square
+     *
+     * \param cell     The cell containing information on the value and 
+     *                  location of the desired cell to set
+     *
+     * \returns A size_t of the value which was just set 
+     *
+     */
 	size_t setValue(Cell cell); 
 
-    //TODO -- add a location to this class
 };
 #endif
