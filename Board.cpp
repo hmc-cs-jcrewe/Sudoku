@@ -391,7 +391,7 @@ list<size_t> SudokuBoard::intersect(list<size_t> list1, list<size_t> list2)
 
 void SudokuBoard::print(ostream& loc)
 {
-    loc << "\e[1m" << "------------------------------------" << "\e[0m" << std::endl;
+    loc << "\e[1m" << " ___________________________________" << "\e[0m" << std::endl;
     for (size_t i = 0; i < 9; ++i)
     {
         for (Cell cell : rows_[i].cells_)
@@ -420,13 +420,17 @@ void SudokuBoard::print(ostream& loc)
             }
         }
         loc << "\e[1m" << "|" << "\e[0m" << std::endl;
-        if (i == 2 || i == 5 || i == 8)
+        if (i == 2 || i == 5)
         {
-            loc << "\e[1m" << "------------------------------------" << "\e[0m" << std::endl;
+            loc << "\e[1m" << "|-----------|-----------|-----------|" << "\e[0m" << std::endl;
+        }
+        else if (i == 8)
+        {
+            loc << "\e[1m" << "|___________________________________|" << "\e[0m" << std::endl;
         }
         else
         {
-            loc << "------------------------------------" << std::endl;
+            loc << "\e[1m" << "|" << "\e[0m" << " --------- " << "\e[1m" << "|" << "\e[0m" << " --------- " << "\e[1m" << "|" << "\e[0m" << " --------- " << "\e[1m" << "|" << "\e[0m" << std::endl;
         }
 
     }
