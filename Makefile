@@ -7,7 +7,7 @@
 
 # ----- Make Macros -----
 
-CXXFLAGS    =	-g -stdlib=libc++ -std=c++11 -Wall -Wextra -pedantic 
+CXXFLAGS    =	-g -stdlib=libc++ -std=c++11 -Wall -Wextra 
 CXX	    =	clang++
 TARGETS 	    =	Board solver sudoku-test
 BOARD_OBJS     =	Board.o cell.o row.o square.o
