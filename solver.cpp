@@ -6,9 +6,9 @@
 #include <iostream>
 #include <stack>
 
-#include "Board.hpp"
+#include "solver.h"
 //board needs to have 17 prefilled spaces for a single solution to exist
-SudokuBoard solve(SudokuBoard board)
+SudokuBoard solver::solve(SudokuBoard board)
 {
     std::stack<SudokuBoard> boardStack;
 
@@ -57,6 +57,9 @@ SudokuBoard solve(SudokuBoard board)
 }
 
 //To run in terminal, within the Sudoku directory type: make solution
+
+
+/*
 int main()
 {
 
@@ -214,3 +217,4 @@ int main()
     }
 
 }
+*/

@@ -15,6 +15,9 @@ public:
     explicit Sudoku_UI(QWidget *parent = 0);
     ~Sudoku_UI();
 
+private slots:
+    void on_pushButton_clicked();
+
 private:
     Ui::Sudoku_UI *ui;
 };

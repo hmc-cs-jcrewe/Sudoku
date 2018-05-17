@@ -25,10 +25,20 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-        sudoku_ui.cpp
+        sudoku_ui.cpp \
+    ../Board.cpp \
+    ../cell.cpp \
+    ../row.cpp \
+    ../solver.cpp \
+    ../square.cpp
 
 HEADERS += \
-        sudoku_ui.h
+        sudoku_ui.h \
+    ../Board.hpp \
+    ../cell.hpp \
+    ../row.hpp \
+    ../square.hpp \
+    ../solver.h
 
 FORMS += \
         sudoku_ui.ui

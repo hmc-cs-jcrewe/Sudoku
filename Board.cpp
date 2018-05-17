@@ -239,9 +239,13 @@ bool SudokuBoard::operator!=(const SudokuBoard& other)
 
 size_t SudokuBoard::setValue(Cell cell)
 {
-    rows_[cell.location_[0]].setValue(cell);
-    columns_[cell.location_[1]].setValue(cell);
-    return squares_[cell.location_[2] - 1].setValue(cell);
+    if (cell.value_ != 0) {
+        rows_[cell.location_[0]].setValue(cell);
+        columns_[cell.location_[1]].setValue(cell);
+        return squares_[cell.location_[2] - 1].setValue(cell);
+    } else{
+        return 0;
+    }
 }
 
 bool SudokuBoard::isComplete()
