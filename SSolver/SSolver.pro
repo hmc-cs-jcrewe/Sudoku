@@ -37,12 +37,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
-    ../SudokuSolver/fileio.h \
-    ../../../../../site/home/jcrewe/Sudoku-master/cell.hpp \
-    ../../../../../site/home/jcrewe/Sudoku-master/Board.hpp \
-    ../../../../../site/home/jcrewe/Sudoku-master/solver.h \
-    ../../../../../site/home/jcrewe/Sudoku-master/row.hpp \
-    ../../../../../site/home/jcrewe/Sudoku-master/square.hpp \
     solver.h \
     ../Board.hpp \
     ../cell.hpp \
