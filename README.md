@@ -2,4 +2,4 @@ This program runs an AI for any Sudoku board input using C++. You can run the C+
 A preloaded board and solution will be printed in the terminal window. If you wish to enter your own board, go to the main function and follow the conventions listed for 
 creating a cell and adding it to the board.
 
-Eventually there will be an UI for users to enter values they want into the board and get a valid solution written in C# for windows.
+The UI is contained within the SSolver folder. Qt version 5.10.1 and qtcreator are required to run the user interface which allows user to input numbers into cells in a sudoku board and hit a solve button to see the solution.

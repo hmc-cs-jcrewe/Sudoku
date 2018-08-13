@@ -205,7 +205,7 @@ Window {
         height: root.height - header.height
         x: 0
         y: 0
-        currentIndex: bar.currentIndex
+        currentIndex: 0
         Item {
             id: boardWrapper
             Board {
