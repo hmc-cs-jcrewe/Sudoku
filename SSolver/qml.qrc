@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>Button.qml</file>
+        <file>../Components.qml/Board.qml</file>
+        <file>../Components.qml/HorizontalLine.qml</file>
+        <file>../Components.qml/LineGrid.qml</file>
+        <file>../Components.qml/main.qml</file>
+        <file>../Components.qml/NumInput.qml</file>
+        <file>../Components.qml/Square.qml</file>
+        <file>../Components.qml/VerticalLine.qml</file>
+    </qresource>
+</RCC>
